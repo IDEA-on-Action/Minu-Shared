@@ -4,7 +4,7 @@ import { ToastProvider, useToast } from './Toast';
 
 // 테스트용 컴포넌트
 function TestComponent() {
-  const { toast, dismiss, dismissAll } = useToast();
+  const { toast, dismissAll } = useToast();
 
   return (
     <div>
