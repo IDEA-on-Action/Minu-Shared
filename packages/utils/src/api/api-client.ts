@@ -62,7 +62,7 @@ export function createApiClient(config: ApiClientConfig) {
 
       const data = await response.json();
       return { success: true, data };
-    } catch (error) {
+    } catch {
       return {
         success: false,
         error: {
