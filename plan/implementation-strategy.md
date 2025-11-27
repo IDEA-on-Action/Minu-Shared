@@ -126,8 +126,105 @@ Red → Green → Refactor
 
 ---
 
+## 7. 릴리스 프로세스
+
+### 7.1 버전 라이프사이클
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│  0.x.0   MVP (Minimum Viable Product)                      │
+│          ├─ 핵심 기능만 구현                                │
+│          ├─ 내부 테스트 및 검증                            │
+│          └─ 소비자 서비스 통합 테스트                       │
+│                        │                                    │
+│                        ▼                                    │
+│  0.x.0-beta.N   Beta Release                               │
+│          ├─ 기능 안정화                                    │
+│          ├─ 피드백 수집 및 반영                            │
+│          └─ 문서화 완료                                    │
+│                        │                                    │
+│                        ▼                                    │
+│  1.0.0-rc.N   Release Candidate                            │
+│          ├─ 최종 검증                                      │
+│          ├─ 성능 최적화                                    │
+│          └─ Breaking Change 금지                           │
+│                        │                                    │
+│                        ▼                                    │
+│  1.0.0   정식 출시 (GA: General Availability)              │
+│          ├─ 프로덕션 Ready                                  │
+│          ├─ 완전한 기능 세트                                │
+│          └─ API 안정성 보장                                 │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 7.2 버전 업 워크플로우
+
+```
+1. 기능/수정 완료
+        │
+        ▼
+2. 변경 유형 판단
+   ├─ Breaking Change? → Major 업
+   ├─ 새 기능?        → Minor 업
+   └─ 버그 수정?      → Patch 업
+        │
+        ▼
+3. Changeset 생성
+   pnpm changeset
+        │
+        ▼
+4. PR 머지 후 버전 업데이트
+   pnpm changeset version
+        │
+        ▼
+5. CHANGELOG.md 자동 업데이트
+        │
+        ▼
+6. Git 태그 생성 및 푸시
+   git tag -a v0.x.0 -m "버전 설명"
+   git push origin v0.x.0
+        │
+        ▼
+7. GitHub Release 생성 (자동)
+```
+
+### 7.3 Changesets 사용법
+
+```bash
+# 변경사항 기록 (대화형)
+pnpm changeset
+
+# 버전 업데이트 (package.json, CHANGELOG.md)
+pnpm changeset version
+
+# GitHub Packages 배포
+pnpm changeset publish
+```
+
+### 7.4 Pre-release 배포
+
+```bash
+# Beta 버전 배포
+pnpm changeset pre enter beta
+pnpm changeset version
+pnpm changeset publish
+
+# RC 버전 배포
+pnpm changeset pre enter rc
+pnpm changeset version
+pnpm changeset publish
+
+# Pre-release 모드 종료
+pnpm changeset pre exit
+```
+
+---
+
 ## 변경 이력
 
 | 버전 | 날짜 | 변경 내용 |
 |------|------|----------|
 | 1.0.0 | 2025-11-27 | 최초 작성 |
+| 1.1.0 | 2025-11-27 | 릴리스 프로세스 섹션 추가 |

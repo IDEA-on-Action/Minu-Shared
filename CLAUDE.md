@@ -487,7 +487,19 @@ SDD 접근: 명세 중심 → 코드는 명세의 구현체
 ## 🔢 버전 관리
 
 **현재 버전**: 0.1.0
-**형식**: Major.Minor.Patch ([Semantic Versioning](https://semver.org/lang/ko/))
+**형식**: Major.Minor.Patch ([Semantic Versioning 2.0.0](https://semver.org/lang/ko/))
+
+### 버전 형식
+
+```
+MAJOR.MINOR.PATCH[-PRERELEASE]
+
+예시:
+- 0.1.0          : 초기 개발 버전
+- 0.2.0-beta.1   : 베타 테스트 버전
+- 1.0.0-rc.1     : 정식 출시 릴리스 후보
+- 1.0.0          : 정식 출시 (GA)
+```
 
 ### 버전 업 기준
 
@@ -496,6 +508,20 @@ SDD 접근: 명세 중심 → 코드는 명세의 구현체
 | **Major (X.0.0)** | Breaking Changes, 하위 호환성을 깨는 변경 | ⚠️ 사용자 승인 필수 |
 | **Minor (0.X.0)** | 새로운 기능 추가 (하위 호환) | 자동 |
 | **Patch (0.0.X)** | 버그 수정, 문서 업데이트, Hotfix | 자동 |
+
+### Pre-release 태그
+
+| 태그 | 용도 | 안정성 |
+|------|------|--------|
+| `-alpha.N` | 내부 개발 버전 | 불안정 |
+| `-beta.N` | 베타 테스트 버전 | 준안정 |
+| `-rc.N` | 릴리스 후보 | 안정 |
+
+### 버전 라이프사이클
+
+```
+MVP (0.x.0) → Beta (0.x.0-beta.N) → RC (1.0.0-rc.N) → GA (1.0.0)
+```
 
 ### Changesets 사용법
 
@@ -508,6 +534,20 @@ pnpm changeset version
 
 # 배포
 pnpm changeset publish
+
+# Pre-release (Beta/RC)
+pnpm changeset pre enter beta  # 또는 rc
+pnpm changeset version
+pnpm changeset publish
+pnpm changeset pre exit
+```
+
+### Git 태그 규칙
+
+```bash
+# 형식: v{VERSION}
+git tag -a v0.1.0 -m "초기 릴리스"
+git push origin v0.1.0
 ```
 
 ### 릴리스 프로세스
@@ -515,6 +555,13 @@ pnpm changeset publish
 1. **PR 생성 시**: 린트 + 타입 체크 + 유닛 테스트
 2. **main 머지 시**: 빌드 + 버전 범프 + GitHub Packages 배포
 3. **릴리스 태그 시**: Changelog 생성 + Release Notes 자동 작성
+
+### 관련 문서
+
+- **[spec/constraints.md](spec/constraints.md#6-버전-관리-제약사항)** - 버전 형식 및 태그 규칙
+- **[spec/acceptance-criteria.md](spec/acceptance-criteria.md#4-릴리스-단계별-출시-조건)** - 출시 조건
+- **[plan/implementation-strategy.md](plan/implementation-strategy.md#7-릴리스-프로세스)** - 릴리스 프로세스 상세
+- **[spec/version-policy.md](spec/version-policy.md)** - Minu 전체 서비스 버전 정책 (참조용)
 
 ---
 

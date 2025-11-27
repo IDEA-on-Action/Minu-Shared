@@ -1,8 +1,17 @@
-# Minu 서비스 버전 관리 명세서
+# Minu 서비스 버전 관리 정책
 
-> **문서 버전**: 1.0.0
+> **문서 버전**: 1.1.0
 > **작성일**: 2025-11-27
 > **상태**: 승인됨 (Approved)
+> **용도**: Minu 전체 서비스 버전 정책 참조 문서
+
+---
+
+> **참고**: 이 문서는 Minu 전체 서비스(Portal, Find, Frame, Build, Keep)에 적용되는 버전 정책입니다.
+> minu-shared 패키지에 적용되는 버전 규칙은 다음 문서를 참조하세요:
+> - [spec/constraints.md](constraints.md#6-버전-관리-제약사항) - 버전 형식 및 태그 규칙
+> - [spec/acceptance-criteria.md](acceptance-criteria.md#4-릴리스-단계별-출시-조건) - 출시 조건
+> - [plan/implementation-strategy.md](../plan/implementation-strategy.md#7-릴리스-프로세스) - 릴리스 프로세스
 
 ---
 
@@ -231,40 +240,7 @@ git push origin v0.8.0-beta.1
 
 ---
 
-## 7. 문서 연관성
-
-### 7.1 관련 문서
-
-| 문서 | 경로 | 설명 |
-|------|------|------|
-| 프로젝트 명세 | CLAUDE.md | 전체 프로젝트 가이드 |
-| 변경 이력 | CHANGELOG.md | 버전별 변경 내역 |
-| 브랜치 전략 | CLAUDE.md#git-브랜치-전략 | Canary 배포 전략 |
-
-### 7.2 SDD 문서 구조
-
-```
-Minu-Portal/
-├── docs/                         # 문서 디렉토리
-│   ├── spec/                     # 명세서
-│   │   ├── version-management.md # 본 문서
-│   │   ├── requirements.md       # 요구사항
-│   │   ├── acceptance-criteria.md# 인수 조건
-│   │   ├── constraints.md        # 제약사항
-│   │   └── user-journeys.md      # 사용자 여정
-│   ├── plan/                     # 계획서
-│   │   └── roadmap-2025-q4.md    # 분기별 로드맵
-│   ├── tasks/                    # 작업 목록
-│   │   └── sprint-1.md           # 스프린트별 태스크
-│   ├── decisions/                # 의사결정 기록
-│   └── minu-best-기획서-v2.md    # 원본 기획서
-├── CLAUDE.md                     # 프로젝트 가이드
-└── CHANGELOG.md                  # 변경 이력
-```
-
----
-
-## 8. 승인
+## 7. 승인
 
 | 역할 | 이름 | 승인일 |
 |------|------|--------|
@@ -279,3 +255,4 @@ Minu-Portal/
 | 버전 | 날짜 | 변경 내용 | 작성자 |
 |------|------|----------|--------|
 | 1.0.0 | 2025-11-27 | 초기 작성 | Claude |
+| 1.1.0 | 2025-11-27 | spec/version-policy.md로 이동, SDD 문서 참조 추가 | Claude |
