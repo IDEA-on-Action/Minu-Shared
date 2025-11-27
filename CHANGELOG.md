@@ -10,11 +10,19 @@
 ## [Unreleased]
 
 ### Added
-- SDD 문서 구조 정비 (spec/, plan/, tasks/)
-- packages/ 폴더 구조 표준화
+
+#### @minu/ui
+- `Alert` 컴포넌트: variant(default, success, warning, error, info), title, description, closable 지원
+- `Tabs` 컴포넌트: Tabs, TabsList, TabsTrigger, TabsContent (제어/비제어 모드)
+- `useControllableState` 훅: 제어/비제어 상태 통합 관리
 
 ### Changed
-- 프로젝트 폴더 구조를 CLAUDE.md 명세와 일치하도록 정비
+- `.npmrc`: 환경변수 경고 해결 (인증 토큰 라인 CI/CD로 이동)
+- `package.json` exports 순서: types를 최상위로 이동 (3개 패키지)
+
+### Fixed
+- SDD 문서 구조 정비 (spec/, plan/, tasks/)
+- packages/ 폴더 구조 표준화
 
 ---
 

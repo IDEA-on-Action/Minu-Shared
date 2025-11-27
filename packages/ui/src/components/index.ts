@@ -8,3 +8,14 @@ export {
   CardContent,
   CardFooter,
 } from './Card';
+export { Alert, type AlertProps } from './Alert';
+export {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  type TabsProps,
+  type TabsListProps,
+  type TabsTriggerProps,
+  type TabsContentProps,
+} from './Tabs';

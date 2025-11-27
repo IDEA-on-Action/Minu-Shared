@@ -10,7 +10,20 @@ export {
   CardDescription,
   CardContent,
   CardFooter,
+  Alert,
+  type AlertProps,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  type TabsProps,
+  type TabsListProps,
+  type TabsTriggerProps,
+  type TabsContentProps,
 } from './components';
+
+// Hooks
+export { useControllableState } from './hooks';
 
 // Utils
 export { cn } from './utils';
