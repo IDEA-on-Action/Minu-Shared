@@ -535,10 +535,18 @@ pnpm changeset publish
 - [x] TypeScript 설정
 - [x] SDD 문서 구조 (spec/, plan/, tasks/)
 - [x] GitHub 연동
+- [x] packages/ 폴더 구조 정비
+- [x] Button 컴포넌트 (기본 구현)
+- [x] Input 컴포넌트 (기본 구현)
+- [x] Card 컴포넌트 (기본 구현)
+- [x] cn 유틸리티 (clsx + tailwind-merge)
+- [x] API 클라이언트 (기본 구현)
+- [x] JWT 유틸리티 (기본 구현)
+- [x] 포맷팅 유틸리티 (기본 구현)
+- [x] User, API 타입 정의
 - [ ] Tailwind 디자인 토큰 정의
-- [ ] Button 컴포넌트
-- [ ] Input 컴포넌트
-- [ ] Card 컴포넌트
+- [ ] 컴포넌트 테스트 작성
+- [ ] 빌드 검증
 
 ---
 
@@ -556,8 +564,9 @@ pnpm changeset publish
 
 ### 프로젝트 문서
 - **[minu-shared-기획서.md](minu-shared-기획서.md)** - 전체 기획서
-- **[version-management.md](version-management.md)** - 버전 관리 명세서
+- **[CHANGELOG.md](CHANGELOG.md)** - 변경 이력
 - **[README.md](README.md)** - 패키지 사용 가이드
+- **[docs/troubleshooting/bug-fixes-log.md](docs/troubleshooting/bug-fixes-log.md)** - 버그 픽스 로그
 
 ### 외부 참고
 - [TypeScript 문서](https://www.typescriptlang.org/docs/)
