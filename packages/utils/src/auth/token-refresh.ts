@@ -1,5 +1,3 @@
-import { isTokenExpired } from './jwt';
-
 /**
  * 토큰 쌍
  */

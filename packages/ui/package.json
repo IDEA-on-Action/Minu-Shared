@@ -1,6 +1,6 @@
 {
   "name": "@minu/ui",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Minu 서비스 공용 UI 컴포넌트",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -28,6 +28,7 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
+    "@storybook/react": "^10.1.0",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "react": "^18.2.0",

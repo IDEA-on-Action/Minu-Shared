@@ -1,6 +1,6 @@
 {
   "name": "@minu/types",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Minu 서비스 공용 TypeScript 타입 정의",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

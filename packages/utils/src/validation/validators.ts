@@ -260,7 +260,6 @@ export function validateBirthDateKR(birthDate: string): ValidationResult {
     return { isValid: false, error: '생년월일은 6자리(YYMMDD)입니다.' };
   }
 
-  const year = parseInt(digits.substring(0, 2), 10);
   const month = parseInt(digits.substring(2, 4), 10);
   const day = parseInt(digits.substring(4, 6), 10);
 

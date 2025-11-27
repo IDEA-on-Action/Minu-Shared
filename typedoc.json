@@ -1,0 +1,22 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "packages/types/src/index.ts",
+    "packages/utils/src/index.ts",
+    "packages/ui/src/index.ts"
+  ],
+  "out": "docs/api",
+  "plugin": ["typedoc-plugin-markdown"],
+  "name": "Minu Shared Packages",
+  "readme": "README.md",
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true,
+  "includeVersion": true,
+  "categorizeByGroup": true,
+  "categoryOrder": ["Types", "Utils", "UI", "*"],
+  "navigationLinks": {
+    "GitHub": "https://github.com/minu-ai/minu-shared"
+  },
+  "tsconfig": "tsconfig.json"
+}
