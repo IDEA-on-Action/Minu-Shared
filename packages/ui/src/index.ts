@@ -20,10 +20,69 @@ export {
   type TabsListProps,
   type TabsTriggerProps,
   type TabsContentProps,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalTitle,
+  ModalDescription,
+  ModalClose,
+  ModalBody,
+  ModalFooter,
+  type ModalProps,
+  type ModalContentProps,
+  type ModalHeaderProps,
+  type ModalTitleProps,
+  type ModalDescriptionProps,
+  type ModalCloseProps,
+  type ModalBodyProps,
+  type ModalFooterProps,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerDescription,
+  DrawerClose,
+  DrawerBody,
+  DrawerFooter,
+  type DrawerProps,
+  type DrawerSide,
+  type DrawerContentProps,
+  type DrawerHeaderProps,
+  type DrawerTitleProps,
+  type DrawerDescriptionProps,
+  type DrawerCloseProps,
+  type DrawerBodyProps,
+  type DrawerFooterProps,
+  ToastProvider,
+  useToast,
+  type ToastProviderProps,
+  type ToastData,
+  type ToastOptions,
+  type ToastVariant,
+  type ToastPosition,
 } from './components';
 
 // Hooks
-export { useControllableState } from './hooks';
+export {
+  useControllableState,
+  useEscapeKey,
+  useBodyScrollLock,
+  useFocusTrap,
+  useClickOutside,
+  useId,
+} from './hooks';
+
+// Primitives
+export {
+  Portal,
+  type PortalProps,
+  Backdrop,
+  type BackdropProps,
+  FocusScope,
+  type FocusScopeProps,
+  VisuallyHidden,
+  type VisuallyHiddenProps,
+} from './primitives';
 
 // Utils
 export { cn } from './utils';

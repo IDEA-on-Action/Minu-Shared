@@ -1,0 +1,18 @@
+export {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalTitle,
+  ModalDescription,
+  ModalClose,
+  ModalBody,
+  ModalFooter,
+  type ModalProps,
+  type ModalContentProps,
+  type ModalHeaderProps,
+  type ModalTitleProps,
+  type ModalDescriptionProps,
+  type ModalCloseProps,
+  type ModalBodyProps,
+  type ModalFooterProps,
+} from './Modal';
