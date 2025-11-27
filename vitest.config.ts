@@ -26,14 +26,18 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'lcov', 'html'],
       include: ['packages/*/src/**/*.{ts,tsx}'],
-      exclude: ['**/index.ts', '**/*.d.ts', '**/types/**'],
-      // TODO: 테스트 작성 후 활성화
-      // thresholds: {
-      //   statements: 80,
-      //   branches: 80,
-      //   functions: 80,
-      //   lines: 80,
-      // },
+      exclude: [
+        '**/index.ts',
+        '**/*.d.ts',
+        '**/types/**',
+        '**/styles/**', // Tailwind 설정 파일 제외
+      ],
+      thresholds: {
+        statements: 80,
+        branches: 75,
+        functions: 80,
+        lines: 80,
+      },
     },
   },
 });
