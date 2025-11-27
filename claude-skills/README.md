@@ -11,9 +11,32 @@
 Claude Skills는 AI 협업 시 일관된 컨텍스트와 규칙을 제공하는 모듈화된 지식 문서입니다.
 SDD(Spec-Driven Development)의 **컨텍스트 보존** 원칙을 실현합니다.
 
+### SSDD (Skillful SDD = SDD + Skills)
+
 ```
-SDD + Claude Skills = 효율적인 AI 협업
+┌─────────────────────────────────────────────────────────────┐
+│                    SSDD (Skillful SDD)                       │
+│                                                              │
+│    SDD (Spec-Driven Development)                            │
+│    ├─ Specify (명세)     → What/Why 정의                    │
+│    ├─ Plan (계획)        → How 설계                         │
+│    ├─ Tasks (작업)       → 실행 단위 분해                   │
+│    └─ Implement (구현)   → 코드 작성                        │
+│                    +                                         │
+│    Claude Skills                                             │
+│    ├─ minu-core         → 공통 규칙, 코드 컨벤션            │
+│    ├─ minu-sdd          → SDD 방법론 가이드                 │
+│    ├─ minu-shared       → 공유 패키지 가이드                │
+│    └─ minu-{service}    → 서비스별 특화 규칙                │
+│                    =                                         │
+│    효율적인 AI 협업 개발                                     │
+│    ├─ 일관된 컨텍스트 제공                                  │
+│    ├─ 프로젝트 지식의 모듈화                                │
+│    └─ 재사용 가능한 AI 협업 인터페이스                      │
+└─────────────────────────────────────────────────────────────┘
 ```
+
+**SSDD (Skillful SDD)**는 명세 주도 개발(SDD)에 AI 협업 최적화 레이어(Skills)를 결합한 개발 방법론입니다.
 
 ---
 
@@ -100,7 +123,7 @@ Claude Project > Settings > Knowledge에서 SKILL.md 파일 직접 업로드
 
 ---
 
-## SDD와 Skills 연동
+## SSDD와 Skills 연동
 
 ### SDD 4단계와 Skills 매핑
 
