@@ -21,3 +21,37 @@ export type {
   SortDirection,
   SortOption,
 } from './api';
+
+// 프로젝트 관련 타입
+export type {
+  ProjectStatus,
+  ProjectRole,
+  Project,
+  ProjectMember,
+  ProjectStats,
+  CreateProjectInput,
+  UpdateProjectInput,
+} from './project';
+
+// 제안서 관련 타입
+export type {
+  ProposalStatus,
+  ReviewStatus,
+  Proposal,
+  ProposalComment,
+  ProposalReview,
+  CreateProposalInput,
+  UpdateProposalInput,
+} from './proposal';
+
+// 구독 확장 타입
+export type {
+  SubscriptionStatus,
+  BillingCycle,
+  PaymentStatus,
+  SubscriptionExtended,
+  SubscriptionUsage,
+  PaymentHistory,
+  PlanLimits,
+  PlanFeatures,
+} from './subscription';
