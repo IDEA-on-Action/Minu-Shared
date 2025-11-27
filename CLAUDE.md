@@ -165,11 +165,14 @@ pnpm dev
 ### 주요 명령어
 
 ```bash
-pnpm dev       # 개발 모드 (watch)
-pnpm build     # 모든 패키지 빌드
-pnpm lint      # 린트 검사
-pnpm type-check # 타입 체크
-pnpm test      # 테스트 실행
+pnpm dev           # 개발 모드 (watch)
+pnpm build         # 모든 패키지 빌드
+pnpm lint          # 린트 검사
+pnpm type-check    # 타입 체크
+pnpm test          # 테스트 실행
+pnpm test:coverage # 테스트 커버리지
+pnpm size-limit    # 번들 크기 검사
+pnpm changeset     # 변경사항 기록
 ```
 
 ### 패키지 사용 (소비자)
@@ -556,6 +559,17 @@ git push origin v0.1.0
 2. **main 머지 시**: 빌드 + 버전 범프 + GitHub Packages 배포
 3. **릴리스 태그 시**: Changelog 생성 + Release Notes 자동 작성
 
+### GitHub Secrets 설정
+
+CI/CD 파이프라인에 필요한 환경 변수:
+
+| Secret | 용도 | 설정 방법 |
+|--------|------|-----------|
+| `GITHUB_TOKEN` | GitHub Packages 배포 | 자동 제공 (설정 불필요) |
+| `CODECOV_TOKEN` | 테스트 커버리지 리포트 | Codecov에서 발급 후 설정 |
+
+**설정 경로**: GitHub Repository → Settings → Secrets and variables → Actions → New repository secret
+
 ### 관련 문서
 
 - **[spec/constraints.md](spec/constraints.md#6-버전-관리-제약사항)** - 버전 형식 및 태그 규칙
@@ -591,6 +605,11 @@ git push origin v0.1.0
 - [x] JWT 유틸리티 (기본 구현)
 - [x] 포맷팅 유틸리티 (기본 구현)
 - [x] User, API 타입 정의
+- [x] CI/CD 파이프라인 구성 (GitHub Actions)
+- [x] Turborepo 설정
+- [x] Vitest 테스트 환경 구성
+- [x] Codecov 연동
+- [x] Size-limit 설정
 - [ ] Tailwind 디자인 토큰 정의
 - [ ] 컴포넌트 테스트 작성
 - [ ] 빌드 검증

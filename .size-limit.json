@@ -1,0 +1,14 @@
+[
+  {
+    "path": "packages/ui/dist/index.mjs",
+    "limit": "50 KB"
+  },
+  {
+    "path": "packages/utils/dist/index.mjs",
+    "limit": "10 KB"
+  },
+  {
+    "path": "packages/types/dist/index.mjs",
+    "limit": "5 KB"
+  }
+]

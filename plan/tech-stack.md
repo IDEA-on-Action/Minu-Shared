@@ -119,8 +119,8 @@ export function cn(...inputs: ClassValue[]) {
 ### 5.1 GitHub Actions
 
 **워크플로우**:
-1. PR 생성 시: lint, type-check, test
-2. main 머지 시: build, publish
+1. PR 생성 시: lint, type-check, test, build, size-limit
+2. main 머지 시: build, publish (Changesets 기반)
 
 ### 5.2 GitHub Packages
 
@@ -129,9 +129,70 @@ export function cn(...inputs: ClassValue[]) {
 - 프라이빗 패키지 지원
 - Actions와 원활한 연동
 
+### 5.3 Turborepo
+
+**선택 이유**:
+- 모노레포 빌드 캐싱 및 최적화
+- 패키지 의존성 순서 자동 관리
+- 병렬 빌드로 속도 향상
+
+**설정**:
+```json
+{
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    }
+  }
+}
+```
+
 ---
 
-## 6. 버전 정보
+## 6. 테스트 및 품질
+
+### 6.1 Vitest
+
+**선택 이유**:
+- Vite 기반 빠른 테스트 실행
+- Jest 호환 API
+- 네이티브 TypeScript 지원
+
+**설정**:
+```typescript
+export default defineConfig({
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'lcov'],
+    },
+  },
+});
+```
+
+### 6.2 Codecov
+
+**용도**: 테스트 커버리지 리포트 및 PR 코멘트
+
+### 6.3 Size-limit
+
+**용도**: 번들 크기 모니터링
+
+**설정**:
+```json
+[
+  { "path": "packages/ui/dist/index.mjs", "limit": "50 KB" },
+  { "path": "packages/utils/dist/index.mjs", "limit": "10 KB" },
+  { "path": "packages/types/dist/index.mjs", "limit": "5 KB" }
+]
+```
+
+---
+
+## 7. 버전 정보
 
 | 도구 | 현재 버전 | 최소 버전 |
 |------|----------|----------|
@@ -140,6 +201,8 @@ export function cn(...inputs: ClassValue[]) {
 | TypeScript | 5.3.3 | 5.0.0 |
 | React | - | 18.0.0 |
 | Tailwind CSS | - | 3.4.0 |
+| Turborepo | 2.0.0 | 2.0.0 |
+| Vitest | 1.3.0 | 1.0.0 |
 
 ---
 
@@ -148,3 +211,4 @@ export function cn(...inputs: ClassValue[]) {
 | 버전 | 날짜 | 변경 내용 |
 |------|------|----------|
 | 1.0.0 | 2025-11-27 | 최초 작성 |
+| 1.1.0 | 2025-11-27 | Turborepo, Vitest, Codecov, Size-limit 추가 |
