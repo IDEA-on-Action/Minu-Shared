@@ -2,7 +2,7 @@
 
 > Claude 협업용 프로젝트 핵심 문서
 
-**버전**: 0.1.0 | **상태**: Phase 3 완료 | **방법론**: SSDD (Skillful SDD)
+**버전**: 1.0.0 | **상태**: Phase 4 완료 (GA) | **방법론**: SSDD (Skillful SDD)
 
 ---
 
@@ -12,8 +12,8 @@ Minu 서비스(Find, Frame, Build, Keep) 간 공유 패키지 모노레포
 
 | 패키지 | 역할 |
 |--------|------|
-| **@minu/ui** | React UI 컴포넌트 (15개), 훅(6개), 프리미티브(4개) |
-| **@minu/utils** | API 클라이언트, JWT, 검증, 타이밍 유틸리티 |
+| **@minu/ui** | React UI 컴포넌트 (15개), 훅(7개), 프리미티브(4개) |
+| **@minu/utils** | API 클라이언트, JWT, 검증, 타이밍, ID 생성 유틸리티 |
 | **@minu/types** | User, Project, Proposal, Subscription 타입 |
 
 ---
@@ -27,6 +27,8 @@ pnpm test          # 테스트
 pnpm lint          # 린트
 pnpm type-check    # 타입 체크
 pnpm changeset     # 변경사항 기록
+pnpm docs          # TypeDoc 문서 생성
+pnpm storybook     # Storybook 실행 (localhost:6006)
 ```
 
 ---
@@ -85,7 +87,7 @@ minu-shared/
 Phase 1 ██████████████████████ 100% 기반 구축 ✅
 Phase 2 ██████████████████████ 100% 컴포넌트 확장 ✅
 Phase 3 ██████████████████████ 100% 유틸리티 확장 ✅
-Phase 4 ░░░░░░░░░░░░░░░░░░░░   0% 배포 & 문서화
+Phase 4 ██████████████████████ 100% 배포 & 문서화 ✅
 ```
 
 **상세**: [plan/roadmap.md](plan/roadmap.md)

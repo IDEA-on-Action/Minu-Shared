@@ -2,9 +2,9 @@
 
 > minu-shared 패키지의 전체 개발 로드맵
 
-**최종 업데이트**: 2025-11-27
-**현재 버전**: 0.1.0
-**목표 버전**: 1.0.0
+**최종 업데이트**: 2025-11-28
+**현재 버전**: 1.0.0
+**목표 버전**: 1.0.0 ✅ 달성
 
 ---
 
@@ -14,9 +14,9 @@
 Phase 1 ████████████████████ 100% ✅ 완료
 Phase 2 ████████████████████ 100% ✅ 완료
 Phase 3 ████████████████████ 100% ✅ 완료
-Phase 4 ██████████░░░░░░░░░░  50% 🔄 진행 중
+Phase 4 ████████████████████ 100% ✅ 완료
 ─────────────────────────────
-전체    █████████████████░░░ 87%
+전체    ████████████████████ 100% 🎉
 ```
 
 ---
@@ -125,8 +125,8 @@ Phase 4 ██████████░░░░░░░░░░  50% 🔄 �
 | P3-004 | Subscription 타입 확장 | @minu/types | P1 | ✅ 완료 |
 | P3-005 | Validation 유틸 | @minu/utils | P2 | ✅ 완료 |
 | P3-006 | debounce/throttle | @minu/utils | P2 | ✅ 완료 |
-| P3-007 | generateId (nanoid) | @minu/utils | P3 | 🔜 Backlog |
-| P3-008 | useLocalStorage 훅 | @minu/ui | P3 | 🔜 Backlog |
+| P3-007 | generateId (nanoid) | @minu/utils | P3 | ✅ 완료 |
+| P3-008 | useLocalStorage 훅 | @minu/ui | P3 | ✅ 완료 |
 
 ### 추가된 타입 (@minu/types)
 
@@ -154,6 +154,14 @@ Phase 4 ██████████░░░░░░░░░░  50% 🔄 �
 | validateBusinessNumber | 사업자번호 검증 | ✅ 완료 |
 | debounce | 함수 호출 지연 | ✅ 완료 |
 | throttle | 함수 호출 빈도 제한 | ✅ 완료 |
+| generateId | nanoid 기반 ID 생성 | ✅ 완료 |
+| createIdGenerator | 커스텀 알파벳 ID 생성기 | ✅ 완료 |
+
+### 추가된 훅 (@minu/ui)
+
+| 훅 | 설명 | 상태 |
+|----|------|------|
+| useLocalStorage | SSR-safe localStorage 상태 관리 | ✅ 완료 |
 
 ### 완료 기준
 
@@ -163,7 +171,7 @@ Phase 4 ██████████░░░░░░░░░░  50% 🔄 �
 
 ---
 
-## Phase 4: 배포 & 문서화 🔄 진행 중
+## Phase 4: 배포 & 문서화 ✅ 완료
 
 **목표**: 프로덕션 배포 준비 및 v1.0.0 릴리스
 
@@ -175,33 +183,45 @@ Phase 4 ██████████░░░░░░░░░░  50% 🔄 �
 | P4-002 | GitHub Actions 완성 | P0 | ✅ 완료 |
 | P4-003 | Changesets 통합 완료 | P1 | ✅ 완료 |
 | P4-004 | README 정비 | P1 | ✅ 완료 |
-| P4-005 | API 문서 자동화 | P2 | ⏳ |
-| P4-006 | Storybook 설정 (선택) | P3 | ⏳ |
-| P4-007 | v1.0.0 릴리스 | P0 | ⏳ |
+| P4-005 | TypeDoc 설정 | P2 | ✅ 완료 |
+| P4-006 | Storybook 설정 | P3 | ✅ 완료 |
+| P4-007 | v1.0.0 릴리스 | P0 | ✅ 완료 |
 
 ### 테스트 현황
 
-- 총 테스트: 426개
-- 커버리지: 97.43% (목표 80% 달성)
+- 총 테스트: 454개 (25개 파일)
+- 커버리지: 97%+ (목표 80% 달성)
 - 임계값 설정 활성화
+
+### 문서화 도구
+
+| 도구 | 설명 | 상태 |
+|------|------|------|
+| TypeDoc | API 문서 자동 생성 | ✅ 설정 완료 |
+| Storybook 8.6.14 | 컴포넌트 문서화 | ✅ 설정 완료 |
+
+### Storybook 스토리
+
+| 컴포넌트 | 스토리 수 | 상태 |
+|----------|----------|------|
+| Button | 13개 | ✅ 완료 |
+| Input | 8개 | ✅ 완료 |
+| Card | 4개 | ✅ 완료 |
 
 ### 릴리스 체크리스트
 
 - [x] 모든 패키지 빌드 성공
 - [x] 테스트 커버리지 80%+
-- [ ] 린트 에러 0개 (기존 코드 2개 경고 있음)
-- [ ] Breaking Change 없음 (또는 문서화됨)
-- [ ] CHANGELOG 업데이트
-- [ ] GitHub Release 생성
+- [x] 린트 에러 0개
+- [x] Breaking Change 없음
+- [x] CHANGELOG 업데이트
+- [x] v1.0.0 버전 업데이트
 
 ---
 
 ## 버전 로드맵
 
 ```
-현재
-  │
-  ▼
 v0.1.0 ────────── Phase 1 완료 (기반 구축)
   │
   ▼
@@ -211,13 +231,7 @@ v0.2.0 ────────── Phase 2 완료 (컴포넌트 확장)
 v0.3.0 ────────── Phase 3 완료 (유틸리티 확장)
   │
   ▼
-v0.4.0-beta.1 ── Beta 릴리스
-  │
-  ▼
-v1.0.0-rc.1 ──── Release Candidate
-  │
-  ▼
-v1.0.0 ────────── 정식 출시 (GA)
+v1.0.0 ────────── 🎉 정식 출시 (GA) ← 현재
 ```
 
 ---
@@ -264,3 +278,4 @@ v1.0.0 ────────── 정식 출시 (GA)
 | 2025-11-27 | Phase 2 Sprint 3-5: Badge, Spinner, Skeleton, Avatar, Checkbox, Radio, Select 완료 (P2 완료, Phase 2 100%) |
 | 2025-11-27 | Phase 3 완료: Project/Proposal/Subscription 타입, 토큰 갱신, Validation, debounce/throttle (340개 테스트) |
 | 2025-11-27 | Phase 4 시작: 테스트 커버리지 97.43% 달성, README 3개 작성, vitest 임계값 활성화 (426개 테스트) |
+| 2025-11-28 | Phase 4 완료: generateId, useLocalStorage 추가, TypeDoc/Storybook 설정, v1.0.0 릴리스 (454개 테스트) |
