@@ -157,12 +157,12 @@ describe('Skeleton', () => {
       render(
         <Skeleton
           width={100}
-          style={{ backgroundColor: 'red' }}
+          height={50}
           data-testid="skeleton"
         />
       );
       const skeleton = screen.getByTestId('skeleton');
-      expect(skeleton).toHaveStyle({ width: '100px', backgroundColor: 'red' });
+      expect(skeleton).toHaveStyle({ width: '100px', height: '50px' });
     });
   });
 

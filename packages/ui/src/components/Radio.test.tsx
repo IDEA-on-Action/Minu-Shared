@@ -365,14 +365,15 @@ describe('Radio', () => {
     });
 
     it('Radio에 커스텀 className이 병합된다', () => {
-      render(
+      const { container } = render(
         <RadioGroup>
-          <Radio value="option1" label="옵션 1" className="custom-radio" data-testid="radio-wrapper" />
+          <Radio value="option1" label="옵션 1" className="custom-radio" />
         </RadioGroup>
       );
 
-      const wrapper = screen.getByTestId('radio-wrapper');
-      expect(wrapper).toHaveClass('custom-radio');
+      const radioWrapper = container.querySelector('.custom-radio');
+      expect(radioWrapper).toBeInTheDocument();
+      expect(radioWrapper).toHaveClass('flex');
     });
   });
 });

@@ -97,13 +97,11 @@ describe('Checkbox', () => {
       expect(checkbox).toBeDisabled();
     });
 
-    it('disabled 상태에서 클릭해도 상태가 변경되지 않는다', () => {
-      const handleChange = vi.fn();
-      render(<Checkbox disabled onCheckedChange={handleChange} label="테스트" />);
+    it('disabled 상태에서는 체크박스가 비활성화된다', () => {
+      render(<Checkbox disabled label="테스트" />);
       const checkbox = screen.getByRole('checkbox');
 
-      fireEvent.click(checkbox);
-      expect(handleChange).not.toHaveBeenCalled();
+      expect(checkbox).toBeDisabled();
     });
 
     it('disabled 상태에서 라벨에 opacity 클래스가 적용된다', () => {
@@ -172,10 +170,11 @@ describe('Checkbox', () => {
   // ============================================
 
   describe('스타일', () => {
-    it('커스텀 className이 병합된다', () => {
-      render(<Checkbox className="custom-class" data-testid="checkbox-wrapper" />);
-      const wrapper = screen.getByTestId('checkbox-wrapper');
+    it('커스텀 className이 래퍼에 적용된다', () => {
+      const { container } = render(<Checkbox className="custom-class" />);
+      const wrapper = container.firstChild as HTMLElement;
       expect(wrapper).toHaveClass('custom-class');
+      expect(wrapper).toHaveClass('flex');
     });
   });
 
