@@ -6,6 +6,7 @@
 **현재 버전**: 0.1.0
 **상태**: 개발 중 (Phase 1)
 **개발 방법론**: SDD (Spec-Driven Development)
+**GitHub**: https://github.com/IDEA-on-Action/Minu-Shared
 
 ---
 
@@ -21,7 +22,7 @@ minu-shared는 Minu 서비스 간 코드 재사용과 일관성을 위한 공유
 |------|------|
 | **프로젝트명** | minu-shared |
 | **설명** | Minu - 프리랜서 비즈니스 플랫폼 공유 패키지 |
-| **레포지토리** | github.com/ideaonaction/minu-shared |
+| **레포지토리** | [github.com/IDEA-on-Action/Minu-Shared](https://github.com/IDEA-on-Action/Minu-Shared) |
 | **배포** | GitHub Packages (npm.pkg.github.com/@minu) |
 
 ### 핵심 가치
@@ -530,8 +531,10 @@ pnpm changeset publish
 
 ### Phase 1 상세 태스크
 
-- [ ] 모노레포 세팅 (pnpm workspaces + Turborepo)
-- [ ] TypeScript 설정
+- [x] 모노레포 세팅 (pnpm workspaces)
+- [x] TypeScript 설정
+- [x] SDD 문서 구조 (spec/, plan/, tasks/)
+- [x] GitHub 연동
 - [ ] Tailwind 디자인 토큰 정의
 - [ ] Button 컴포넌트
 - [ ] Input 컴포넌트
@@ -541,8 +544,19 @@ pnpm changeset publish
 
 ## 📚 참고 문서
 
+### SDD 문서
+- **[spec/requirements.md](spec/requirements.md)** - 사용자 요구사항
+- **[spec/acceptance-criteria.md](spec/acceptance-criteria.md)** - 인수 조건
+- **[spec/constraints.md](spec/constraints.md)** - 제약사항
+- **[plan/architecture.md](plan/architecture.md)** - 아키텍처 설계
+- **[plan/tech-stack.md](plan/tech-stack.md)** - 기술 스택
+- **[plan/implementation-strategy.md](plan/implementation-strategy.md)** - 구현 전략
+- **[tasks/sprint-1.md](tasks/sprint-1.md)** - Sprint 1 태스크
+- **[tasks/backlog.md](tasks/backlog.md)** - 백로그
+
 ### 프로젝트 문서
 - **[minu-shared-기획서.md](minu-shared-기획서.md)** - 전체 기획서
+- **[version-management.md](version-management.md)** - 버전 관리 명세서
 - **[README.md](README.md)** - 패키지 사용 가이드
 
 ### 외부 참고
