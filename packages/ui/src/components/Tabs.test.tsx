@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
+import { axe } from 'jest-axe';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs';
 
 describe('Tabs', () => {
@@ -150,5 +151,22 @@ describe('Tabs', () => {
     expect(listRef).toHaveBeenCalled();
     expect(triggerRef).toHaveBeenCalled();
     expect(contentRef).toHaveBeenCalled();
+  });
+
+  describe('axe 접근성 테스트', () => {
+    it('접근성 위반이 없어야 한다', async () => {
+      const { container } = render(
+        <Tabs defaultValue="tab1">
+          <TabsList>
+            <TabsTrigger value="tab1">탭 1</TabsTrigger>
+            <TabsTrigger value="tab2">탭 2</TabsTrigger>
+          </TabsList>
+          <TabsContent value="tab1">탭 1 내용</TabsContent>
+          <TabsContent value="tab2">탭 2 내용</TabsContent>
+        </Tabs>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
   });
 });

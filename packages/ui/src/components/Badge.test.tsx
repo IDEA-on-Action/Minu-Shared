@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
+import { axe } from 'jest-axe';
 import { Badge } from './Badge';
 
 describe('Badge', () => {
@@ -126,6 +127,18 @@ describe('Badge', () => {
       render(<Badge aria-label="상태 뱃지">상태</Badge>);
       const badge = screen.getByText('상태');
       expect(badge).toHaveAttribute('aria-label', '상태 뱃지');
+    });
+  });
+
+  // ============================================
+  // 접근성 테스트
+  // ============================================
+
+  describe('접근성', () => {
+    it('접근성 위반이 없어야 한다', async () => {
+      const { container } = render(<Badge>뱃지</Badge>);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

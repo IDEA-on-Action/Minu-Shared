@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
+import { axe } from 'jest-axe';
 import { Button } from './Button';
 
 describe('Button', () => {
@@ -112,5 +113,13 @@ describe('Button', () => {
     const ref = vi.fn();
     render(<Button ref={ref}>버튼</Button>);
     expect(ref).toHaveBeenCalled();
+  });
+
+  describe('접근성', () => {
+    it('접근성 위반이 없어야 한다', async () => {
+      const { container } = render(<Button>접근성 테스트</Button>);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
   });
 });

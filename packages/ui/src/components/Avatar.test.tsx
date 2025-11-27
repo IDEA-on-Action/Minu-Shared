@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
+import { axe } from 'jest-axe';
 import { Avatar } from './Avatar';
 
 describe('Avatar', () => {
@@ -196,6 +197,14 @@ describe('Avatar', () => {
       render(<Avatar data-testid="avatar" id="my-avatar" />);
       const avatar = screen.getByTestId('avatar');
       expect(avatar).toHaveAttribute('id', 'my-avatar');
+    });
+  });
+
+  describe('axe 접근성 테스트', () => {
+    it('접근성 위반이 없어야 한다', async () => {
+      const { container } = render(<Avatar name="홍길동" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

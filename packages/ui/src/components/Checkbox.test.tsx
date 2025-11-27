@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
+import { axe } from 'jest-axe';
 import { Checkbox } from './Checkbox';
 
 describe('Checkbox', () => {
@@ -199,6 +200,14 @@ describe('Checkbox', () => {
       render(<Checkbox required label="필수" />);
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toBeRequired();
+    });
+  });
+
+  describe('axe 접근성 테스트', () => {
+    it('접근성 위반이 없어야 한다', async () => {
+      const { container } = render(<Checkbox label="동의합니다" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

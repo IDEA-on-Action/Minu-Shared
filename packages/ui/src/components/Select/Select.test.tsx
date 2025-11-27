@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
+import { axe } from 'jest-axe';
 import {
   Select,
   SelectTrigger,
@@ -325,6 +326,30 @@ describe('Select', () => {
       );
 
       consoleError.mockRestore();
+    });
+  });
+
+  // ============================================
+  // axe 접근성 테스트
+  // ============================================
+
+  describe('axe 접근성 테스트', () => {
+    it('접근성 위반이 없어야 한다', async () => {
+      const { container } = render(
+        <Select>
+          <SelectTrigger aria-label="옵션 선택" data-testid="trigger">
+            <SelectValue placeholder="선택하세요" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="option1">옵션 1</SelectItem>
+            <SelectItem value="option2">옵션 2</SelectItem>
+          </SelectContent>
+        </Select>
+      );
+      fireEvent.click(screen.getByTestId('trigger'));
+
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
+import { axe } from 'jest-axe';
 import { RadioGroup, Radio } from './Radio';
 
 describe('Radio', () => {
@@ -374,6 +375,19 @@ describe('Radio', () => {
       const radioWrapper = container.querySelector('.custom-radio');
       expect(radioWrapper).toBeInTheDocument();
       expect(radioWrapper).toHaveClass('flex');
+    });
+  });
+
+  describe('axe 접근성 테스트', () => {
+    it('접근성 위반이 없어야 한다', async () => {
+      const { container } = render(
+        <RadioGroup defaultValue="option1">
+          <Radio value="option1" label="옵션 1" />
+          <Radio value="option2" label="옵션 2" />
+        </RadioGroup>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

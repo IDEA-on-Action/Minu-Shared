@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
+import { axe } from 'jest-axe';
 import { Input } from './Input';
 
 describe('Input', () => {
@@ -90,5 +91,18 @@ describe('Input', () => {
     const input = screen.getByTestId('input');
     expect(input).toHaveAttribute('maxLength', '10');
     expect(input).toBeRequired();
+  });
+
+  describe('접근성', () => {
+    it('접근성 위반이 없어야 한다', async () => {
+      const { container } = render(
+        <label>
+          이름
+          <Input placeholder="이름을 입력하세요" />
+        </label>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
   });
 });

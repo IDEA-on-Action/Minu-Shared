@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
+import { axe } from 'jest-axe';
 import { Modal } from './Modal';
 
 describe('Modal', () => {
@@ -199,6 +200,27 @@ describe('Modal', () => {
 
       const dialog = screen.getByRole('dialog');
       expect(dialog).toHaveClass('max-w-lg');
+    });
+  });
+
+  // ============================================
+  // axe 접근성 테스트
+  // ============================================
+
+  describe('axe 접근성 테스트', () => {
+    it('접근성 위반이 없어야 한다', async () => {
+      const { container } = render(
+        <Modal open={true}>
+          <Modal.Content>
+            <Modal.Header>
+              <Modal.Title>모달 제목</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>모달 내용</Modal.Body>
+          </Modal.Content>
+        </Modal>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

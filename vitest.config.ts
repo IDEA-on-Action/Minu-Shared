@@ -15,6 +15,15 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
     include: ['packages/**/*.{test,spec}.{ts,tsx}'],
+    // 메모리 최적화 (OOM 방지)
+    pool: 'forks',
+    poolOptions: {
+      forks: {
+        maxForks: 4,
+        minForks: 1,
+      },
+    },
+    isolate: true,
     deps: {
       optimizer: {
         web: {

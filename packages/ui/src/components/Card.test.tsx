@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
+import { axe } from 'jest-axe';
 import {
   Card,
   CardHeader,
@@ -147,5 +148,22 @@ describe('Card 조합', () => {
     expect(screen.getByText('카드 콘텐츠')).toBeInTheDocument();
     expect(screen.getByTestId('footer')).toBeInTheDocument();
     expect(screen.getByText('카드 푸터')).toBeInTheDocument();
+  });
+});
+
+describe('접근성', () => {
+  it('접근성 위반이 없어야 한다', async () => {
+    const { container } = render(
+      <Card>
+        <CardHeader>
+          <CardTitle>카드 제목</CardTitle>
+          <CardDescription>카드 설명</CardDescription>
+        </CardHeader>
+        <CardContent>카드 콘텐츠</CardContent>
+        <CardFooter>카드 푸터</CardFooter>
+      </Card>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

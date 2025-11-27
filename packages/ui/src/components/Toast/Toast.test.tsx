@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { axe } from 'jest-axe';
 import { ToastProvider, useToast } from './Toast';
 
 // 테스트용 컴포넌트
@@ -270,5 +271,28 @@ describe('Toast', () => {
 
       consoleError.mockRestore();
     });
+  });
+
+  // ============================================
+  // axe 접근성 테스트
+  // ============================================
+
+  describe('axe 접근성 테스트', () => {
+    it('접근성 위반이 없어야 한다', async () => {
+      vi.useRealTimers(); // axe 테스트는 실제 타이머 사용
+
+      const { container } = render(
+        <ToastProvider>
+          <TestComponent />
+        </ToastProvider>
+      );
+
+      fireEvent.click(screen.getByText('기본 토스트'));
+
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+
+      vi.useFakeTimers(); // 다른 테스트를 위해 다시 fake 타이머로
+    }, 10000);
   });
 });

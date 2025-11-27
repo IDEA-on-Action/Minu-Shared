@@ -2,14 +2,14 @@
   "name": "@minu/utils",
   "version": "1.0.0",
   "description": "Minu 서비스 공용 유틸리티 함수",
+  "sideEffects": false,
+  "type": "module",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "files": [

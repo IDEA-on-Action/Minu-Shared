@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
+import { axe } from 'jest-axe';
 import { Drawer } from './Drawer';
 
 describe('Drawer', () => {
@@ -209,6 +210,21 @@ describe('Drawer', () => {
 
       const title = screen.getByText('제목');
       expect(title).toHaveAttribute('id', labelledBy);
+    });
+
+    it('접근성 위반이 없어야 한다', async () => {
+      const { container } = render(
+        <Drawer open={true}>
+          <Drawer.Content>
+            <Drawer.Header>
+              <Drawer.Title>드로어 제목</Drawer.Title>
+            </Drawer.Header>
+            <Drawer.Body>드로어 내용</Drawer.Body>
+          </Drawer.Content>
+        </Drawer>
+      );
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

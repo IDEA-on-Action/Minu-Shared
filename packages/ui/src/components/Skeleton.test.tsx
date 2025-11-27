@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
+import { axe } from 'jest-axe';
 import { Skeleton } from './Skeleton';
 
 describe('Skeleton', () => {
@@ -175,6 +176,14 @@ describe('Skeleton', () => {
       render(<Skeleton data-testid="skeleton" id="my-skeleton" />);
       const skeleton = screen.getByTestId('skeleton');
       expect(skeleton).toHaveAttribute('id', 'my-skeleton');
+    });
+  });
+
+  describe('axe 접근성 테스트', () => {
+    it('접근성 위반이 없어야 한다', async () => {
+      const { container } = render(<Skeleton width={200} height={20} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });
