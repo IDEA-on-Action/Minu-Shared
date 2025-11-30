@@ -17,7 +17,8 @@
 | Phase 3 | 8 | 0 | 0 | 8 |
 | Phase 4 | 7 | 0 | 0 | 7 |
 | Phase 5 | 8 | 0 | 0 | 8 |
-| **합계** | **55** | **0** | **0** | **55** |
+| Phase 6 | 7 | 0 | 0 | 7 |
+| **합계** | **62** | **0** | **0** | **62** |
 
 ---
 
@@ -92,6 +93,20 @@
 
 ---
 
+## Phase 6: 고급 기능 & 통합 (v1.2.0) ✅ 완료
+
+| ID | 작업 | 패키지 | 우선순위 | 상태 |
+|----|------|--------|----------|------|
+| P6-001 | Popover 컴포넌트 | @minu/ui | P1 | ✅ |
+| P6-002 | Menu 컴포넌트 | @minu/ui | P1 | ✅ |
+| P6-003 | Accordion 컴포넌트 | @minu/ui | P1 | ✅ |
+| P6-004 | Progress 컴포넌트 | @minu/ui | P2 | ✅ |
+| P6-005 | useMediaQuery 훅 | @minu/ui | P2 | ✅ |
+| P6-006 | useDebounce 훅 | @minu/ui | P2 | ✅ |
+| P6-007 | useDebouncedCallback 훅 | @minu/ui | P2 | ✅ |
+
+---
+
 ## 기술 부채
 
 | ID | 내용 | 우선순위 | 상태 |
@@ -133,3 +148,4 @@
 | 2025-11-27 | Phase 1~3 완료 상태 동기화 (로드맵 반영) |
 | 2025-11-27 | Phase 4: 테스트 커버리지 97.43%, README 3개 완료, vitest 임계값 활성화 |
 | 2025-11-30 | v1.0.0 GA 릴리스 완료, Phase 1~4 모두 100% 완료, P3-007/P3-008/P4-005~007 완료 처리 |
+| 2025-11-30 | Phase 6 완료: Popover, Menu, Accordion, Progress 컴포넌트 + useMediaQuery, useDebounce, useDebouncedCallback 훅 추가 |
