@@ -508,15 +508,24 @@ export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
       }
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleClick();
+      }
+    };
+
     return (
       <div
         ref={ref}
         role="option"
         aria-selected={isSelected}
         aria-disabled={disabled}
+        tabIndex={disabled ? -1 : 0}
         data-highlighted={isHighlighted}
         data-disabled={disabled}
         onClick={handleClick}
+        onKeyDown={handleKeyDown}
         className={cn(
           'relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none',
           'data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground',

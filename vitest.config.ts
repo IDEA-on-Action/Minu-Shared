@@ -19,11 +19,12 @@ export default defineConfig({
     pool: 'forks',
     poolOptions: {
       forks: {
-        maxForks: 4,
+        maxForks: 2,
         minForks: 1,
       },
     },
     isolate: true,
+    fileParallelism: false,
     deps: {
       optimizer: {
         web: {
