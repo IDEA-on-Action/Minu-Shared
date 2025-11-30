@@ -1,5 +1,6 @@
 export { Button, type ButtonProps } from './Button';
 export { Input, type InputProps } from './Input';
+export { Textarea, type TextareaProps } from './Textarea';
 export {
   Card,
   CardHeader,
@@ -71,6 +72,7 @@ export { Skeleton, type SkeletonProps } from './Skeleton';
 export { Avatar, type AvatarProps } from './Avatar';
 export { Checkbox, type CheckboxProps } from './Checkbox';
 export { RadioGroup, Radio, type RadioGroupProps, type RadioProps } from './Radio';
+export { Switch, type SwitchProps } from './Switch';
 export {
   Select,
   SelectTrigger,
