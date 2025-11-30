@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import { axe } from 'jest-axe';
 import { Tooltip } from './Tooltip';
@@ -62,7 +62,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         expect(screen.getByRole('tooltip')).toBeInTheDocument();
@@ -79,7 +81,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         expect(screen.getByRole('tooltip')).toBeInTheDocument();
@@ -106,14 +110,16 @@ describe('Tooltip', () => {
       expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
 
       // delay 후 표시
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         expect(screen.getByRole('tooltip')).toBeInTheDocument();
       });
     });
 
-    it('delay 전에 마우스가 떠나면 툴팁이 표시되지 않는다', () => {
+    it('delay 전에 마우스가 떠나면 툴팁이 표시되지 않는다', async () => {
       render(
         <Tooltip content="툴팁 내용" delay={200}>
           <button>호버하세요</button>
@@ -123,11 +129,15 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.advanceTimersByTime(100); // delay의 절반만 진행
+      await act(async () => {
+        vi.advanceTimersByTime(100); // delay의 절반만 진행
+      });
 
       fireEvent.mouseLeave(trigger);
 
-      vi.runAllTimers(); // 나머지 시간 진행
+      await act(async () => {
+        vi.runAllTimers(); // 나머지 시간 진행
+      });
 
       expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
@@ -148,7 +158,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.focus(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         expect(screen.getByRole('tooltip')).toBeInTheDocument();
@@ -165,7 +177,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.focus(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         expect(screen.getByRole('tooltip')).toBeInTheDocument();
@@ -184,7 +198,7 @@ describe('Tooltip', () => {
   // ============================================
 
   describe('disabled', () => {
-    it('disabled일 때 툴팁이 표시되지 않는다 (hover)', () => {
+    it('disabled일 때 툴팁이 표시되지 않는다 (hover)', async () => {
       render(
         <Tooltip content="툴팁 내용" disabled delay={100}>
           <button>호버하세요</button>
@@ -194,12 +208,14 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
 
-    it('disabled일 때 툴팁이 표시되지 않는다 (focus)', () => {
+    it('disabled일 때 툴팁이 표시되지 않는다 (focus)', async () => {
       render(
         <Tooltip content="툴팁 내용" disabled delay={100}>
           <button>포커스하세요</button>
@@ -209,7 +225,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.focus(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
@@ -230,7 +248,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         const tooltip = screen.getByRole('tooltip');
@@ -248,7 +268,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         const tooltip = screen.getByRole('tooltip');
@@ -266,7 +288,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         const tooltip = screen.getByRole('tooltip');
@@ -284,7 +308,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         const tooltip = screen.getByRole('tooltip');
@@ -308,7 +334,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         const tooltip = screen.getByRole('tooltip');
@@ -326,7 +354,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         const tooltip = screen.getByRole('tooltip');
@@ -344,7 +374,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         const tooltip = screen.getByRole('tooltip');
@@ -368,7 +400,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         expect(screen.getByText('간단한 툴팁')).toBeInTheDocument();
@@ -393,7 +427,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         expect(screen.getByText('제목')).toBeInTheDocument();
@@ -417,7 +453,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         expect(screen.getByRole('tooltip')).toBeInTheDocument();
@@ -434,7 +472,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         const tooltip = screen.getByRole('tooltip');
@@ -453,7 +493,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         expect(trigger).toHaveAttribute('aria-describedby');
@@ -482,7 +524,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         const tooltip = screen.getByRole('tooltip');
@@ -507,7 +551,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(() => {
         const tooltip = screen.getByRole('tooltip');
@@ -541,7 +587,9 @@ describe('Tooltip', () => {
       const trigger = screen.getByRole('button');
       fireEvent.mouseEnter(trigger);
 
-      vi.runAllTimers();
+      await act(async () => {
+        vi.runAllTimers();
+      });
 
       await waitFor(async () => {
         expect(screen.getByRole('tooltip')).toBeInTheDocument();
