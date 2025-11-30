@@ -9,6 +9,9 @@ export {
   useFocusTrap,
   useClickOutside,
   useId,
+  useMediaQuery,
+  useDebounce,
+  useDebouncedCallback,
 } from './hooks';
 
 // Primitives

@@ -5,3 +5,5 @@ export { useFocusTrap } from './use-focus-trap';
 export { useClickOutside } from './use-click-outside';
 export { useId } from './use-id';
 export { useLocalStorage, type UseLocalStorageOptions } from './use-local-storage';
+export { useMediaQuery } from './use-media-query';
+export { useDebounce, useDebouncedCallback } from './use-debounce';

@@ -69,6 +69,18 @@ export const minuPreset = {
 
       // 스크린 브레이크포인트
       screens: breakpoints,
+
+      // 애니메이션
+      keyframes: {
+        'progress-indeterminate': {
+          '0%': { transform: 'translateX(-100%)', width: '30%' },
+          '50%': { transform: 'translateX(200%)', width: '50%' },
+          '100%': { transform: 'translateX(-100%)', width: '30%' },
+        },
+      },
+      animation: {
+        'progress-indeterminate': 'progress-indeterminate 1.5s ease-in-out infinite',
+      },
     },
   },
 

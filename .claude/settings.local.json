@@ -17,7 +17,11 @@
       "Bash(pnpm add:*)",
       "Bash(pnpm remove:*)",
       "Bash(pnpm version-packages:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(npx vitest:*)",
+      "Bash(pnpm test:coverage:*)",
+      "Bash(pnpm exec vitest:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": [],
     "ask": []
