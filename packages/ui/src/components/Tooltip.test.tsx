@@ -1,10 +1,15 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import { axe } from 'jest-axe';
 import { Tooltip } from './Tooltip';
 
 describe('Tooltip', () => {
+  beforeEach(() => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+  });
+
   afterEach(() => {
+    vi.runOnlyPendingTimers();
     vi.useRealTimers();
   });
 
@@ -48,8 +53,6 @@ describe('Tooltip', () => {
 
   describe('인터랙션 (Hover)', () => {
     it('마우스 hover 시 툴팁이 표시된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={100}>
           <button>호버하세요</button>
@@ -67,8 +70,6 @@ describe('Tooltip', () => {
     });
 
     it('마우스 leave 시 툴팁이 숨겨진다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={100}>
           <button>호버하세요</button>
@@ -92,8 +93,6 @@ describe('Tooltip', () => {
     });
 
     it('delay 시간 후에 툴팁이 표시된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={200}>
           <button>호버하세요</button>
@@ -115,8 +114,6 @@ describe('Tooltip', () => {
     });
 
     it('delay 전에 마우스가 떠나면 툴팁이 표시되지 않는다', () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={200}>
           <button>호버하세요</button>
@@ -142,8 +139,6 @@ describe('Tooltip', () => {
 
   describe('인터랙션 (Focus)', () => {
     it('focus 시 툴팁이 표시된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={100}>
           <button>포커스하세요</button>
@@ -161,8 +156,6 @@ describe('Tooltip', () => {
     });
 
     it('blur 시 툴팁이 숨겨진다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={100}>
           <button>포커스하세요</button>
@@ -192,8 +185,6 @@ describe('Tooltip', () => {
 
   describe('disabled', () => {
     it('disabled일 때 툴팁이 표시되지 않는다 (hover)', () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" disabled delay={100}>
           <button>호버하세요</button>
@@ -209,8 +200,6 @@ describe('Tooltip', () => {
     });
 
     it('disabled일 때 툴팁이 표시되지 않는다 (focus)', () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" disabled delay={100}>
           <button>포커스하세요</button>
@@ -232,8 +221,6 @@ describe('Tooltip', () => {
 
   describe('side 위치', () => {
     it('side="top"이 기본값으로 적용된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={100}>
           <button>호버하세요</button>
@@ -252,8 +239,6 @@ describe('Tooltip', () => {
     });
 
     it('side="bottom"이 적용된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" side="bottom" delay={100}>
           <button>호버하세요</button>
@@ -272,8 +257,6 @@ describe('Tooltip', () => {
     });
 
     it('side="left"이 적용된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" side="left" delay={100}>
           <button>호버하세요</button>
@@ -292,8 +275,6 @@ describe('Tooltip', () => {
     });
 
     it('side="right"이 적용된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" side="right" delay={100}>
           <button>호버하세요</button>
@@ -318,8 +299,6 @@ describe('Tooltip', () => {
 
   describe('align 정렬', () => {
     it('align="center"가 기본값으로 적용된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={100}>
           <button>호버하세요</button>
@@ -338,8 +317,6 @@ describe('Tooltip', () => {
     });
 
     it('align="start"가 적용된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" align="start" delay={100}>
           <button>호버하세요</button>
@@ -358,8 +335,6 @@ describe('Tooltip', () => {
     });
 
     it('align="end"가 적용된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" align="end" delay={100}>
           <button>호버하세요</button>
@@ -384,8 +359,6 @@ describe('Tooltip', () => {
 
   describe('툴팁 내용', () => {
     it('문자열 content가 렌더링된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="간단한 툴팁" delay={100}>
           <button>호버하세요</button>
@@ -403,8 +376,6 @@ describe('Tooltip', () => {
     });
 
     it('ReactNode content가 렌더링된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip
           content={
@@ -437,8 +408,6 @@ describe('Tooltip', () => {
 
   describe('접근성', () => {
     it('role="tooltip"이 설정된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={100}>
           <button>호버하세요</button>
@@ -456,8 +425,6 @@ describe('Tooltip', () => {
     });
 
     it('aria-describedby가 올바르게 연결된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={100}>
           <button>호버하세요</button>
@@ -477,8 +444,6 @@ describe('Tooltip', () => {
     });
 
     it('툴팁이 숨겨지면 aria-describedby가 제거된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={100}>
           <button>호버하세요</button>
@@ -508,8 +473,6 @@ describe('Tooltip', () => {
 
   describe('애니메이션', () => {
     it('툴팁이 fade-in 애니메이션을 가진다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={100}>
           <button>호버하세요</button>
@@ -535,8 +498,6 @@ describe('Tooltip', () => {
 
   describe('Portal', () => {
     it('툴팁이 body에 렌더링된다', async () => {
-      vi.useFakeTimers();
-
       render(
         <Tooltip content="툴팁 내용" delay={100}>
           <button>호버하세요</button>
@@ -571,8 +532,6 @@ describe('Tooltip', () => {
     });
 
     it('툴팁이 표시되었을 때 접근성 위반이 없어야 한다', async () => {
-      vi.useFakeTimers();
-
       const { container } = render(
         <Tooltip content="툴팁 내용" delay={100}>
           <button>호버하세요</button>

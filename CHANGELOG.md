@@ -11,6 +11,26 @@
 
 ---
 
+## [1.1.0] - 2025-11-30
+
+### Added
+
+#### @minu/ui
+- **Phase 5 컴포넌트 (8개)**
+  - `Switch` 컴포넌트: 토글 스위치 (on/off 상태, 비활성화 지원)
+  - `Textarea` 컴포넌트: 다중 라인 텍스트 입력 (자동 높이 조절 옵션)
+  - `Slider` 컴포넌트: 범위 선택 슬라이더 (min/max/step, 비활성화)
+  - `DatePicker` 컴포넌트: 날짜 선택기 (캘린더 UI, 범위 선택)
+  - `Breadcrumb` 컴포넌트: 탐색 경로 표시 (구분자 커스터마이징)
+  - `Pagination` 컴포넌트: 페이지 네비게이션 (이전/다음, 페이지 번호)
+  - `Tooltip` 컴포넌트: 툴팁 (4방향, 정렬, 딜레이)
+  - `Dropdown` 컴포넌트: 드롭다운 메뉴 (아이템 그룹, 구분선)
+
+### Fixed
+- `Tooltip` 테스트: fake timer와 waitFor 충돌 해결
+
+---
+
 ## [1.0.0] - 2025-11-28
 
 ### Added
@@ -105,6 +125,7 @@
 - **Minor (0.X.0)**: 새로운 기능 추가 (하위 호환)
 - **Patch (0.0.X)**: 버그 수정, 문서 업데이트
 
-[Unreleased]: https://github.com/IDEA-on-Action/minu-shared/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/IDEA-on-Action/minu-shared/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/IDEA-on-Action/minu-shared/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/IDEA-on-Action/minu-shared/compare/v0.1.0...v1.0.0
 [0.1.0]: https://github.com/IDEA-on-Action/minu-shared/releases/tag/v0.1.0
