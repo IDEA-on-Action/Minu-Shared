@@ -16,8 +16,8 @@
 | Phase 2 | 12 | 0 | 0 | 12 |
 | Phase 3 | 8 | 0 | 0 | 8 |
 | Phase 4 | 7 | 0 | 0 | 7 |
-| Phase 5 | 2 | 0 | 6 | 8 |
-| **합계** | **49** | **0** | **6** | **55** |
+| Phase 5 | 6 | 0 | 2 | 8 |
+| **합계** | **53** | **0** | **2** | **55** |
 
 ---
 
@@ -83,11 +83,11 @@
 |----|------|--------|----------|------|
 | P5-001 | Switch 컴포넌트 | @minu/ui | P1 | ✅ |
 | P5-002 | Textarea 컴포넌트 | @minu/ui | P1 | ✅ |
-| P5-003 | Slider 컴포넌트 | @minu/ui | P2 | ⏳ |
+| P5-003 | Slider 컴포넌트 | @minu/ui | P2 | ✅ |
 | P5-004 | DatePicker 컴포넌트 | @minu/ui | P2 | ⏳ |
-| P5-005 | Breadcrumb 컴포넌트 | @minu/ui | P2 | ⏳ |
-| P5-006 | Pagination 컴포넌트 | @minu/ui | P2 | ⏳ |
-| P5-007 | Tooltip 컴포넌트 | @minu/ui | P3 | ⏳ |
+| P5-005 | Breadcrumb 컴포넌트 | @minu/ui | P2 | ✅ |
+| P5-006 | Pagination 컴포넌트 | @minu/ui | P2 | ✅ |
+| P5-007 | Tooltip 컴포넌트 | @minu/ui | P3 | ✅ |
 | P5-008 | Dropdown 컴포넌트 | @minu/ui | P3 | ⏳ |
 
 ---
