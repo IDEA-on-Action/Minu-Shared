@@ -73,6 +73,7 @@ export { Avatar, type AvatarProps } from './Avatar';
 export { Checkbox, type CheckboxProps } from './Checkbox';
 export { RadioGroup, Radio, type RadioGroupProps, type RadioProps } from './Radio';
 export { Switch, type SwitchProps } from './Switch';
+export { Slider, type SliderProps } from './Slider';
 export {
   Select,
   SelectTrigger,
@@ -91,3 +92,19 @@ export {
   type SelectValue as SelectValueType,
   type SelectOption,
 } from './Select';
+export {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
+  type BreadcrumbProps,
+  type BreadcrumbListProps,
+  type BreadcrumbItemProps,
+  type BreadcrumbLinkProps,
+  type BreadcrumbSeparatorProps,
+  type BreadcrumbPageProps,
+} from './Breadcrumb';
+export { Tooltip, type TooltipProps } from './Tooltip';
+export { Pagination, type PaginationProps } from './Pagination';
