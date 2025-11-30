@@ -2,7 +2,7 @@
 
 > Claude 협업용 프로젝트 핵심 문서
 
-**버전**: 1.0.0 | **상태**: Phase 4 완료 (GA) | **방법론**: SSDD (Skillful SDD)
+**버전**: 1.1.0 | **상태**: Phase 5 완료 | **방법론**: SSDD (Skillful SDD)
 
 ---
 
@@ -12,7 +12,7 @@ Minu 서비스(Find, Frame, Build, Keep) 간 공유 패키지 모노레포
 
 | 패키지 | 역할 |
 |--------|------|
-| **@minu/ui** | React UI 컴포넌트 (15개), 훅(7개), 프리미티브(4개) |
+| **@minu/ui** | React UI 컴포넌트 (23개), 훅(7개), 프리미티브(4개) |
 | **@minu/utils** | API 클라이언트, JWT, 검증, 타이밍, ID 생성 유틸리티 |
 | **@minu/types** | User, Project, Proposal, Subscription 타입 |
 
@@ -88,6 +88,7 @@ Phase 1 ██████████████████████ 100% 
 Phase 2 ██████████████████████ 100% 컴포넌트 확장 ✅
 Phase 3 ██████████████████████ 100% 유틸리티 확장 ✅
 Phase 4 ██████████████████████ 100% 배포 & 문서화 ✅
+Phase 5 ██████████████████████ 100% 컴포넌트 보강 (v1.1.0) ✅
 ```
 
 **상세**: [plan/roadmap.md](plan/roadmap.md)
