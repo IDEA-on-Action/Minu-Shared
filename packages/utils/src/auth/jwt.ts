@@ -1,4 +1,4 @@
-import type { JWTPayload, MinuService } from '@minu/types';
+import type { JWTPayload, MinuService } from '@idea-on-action/types';
 
 /**
  * JWT 토큰을 파싱하여 페이로드 반환

@@ -12,9 +12,9 @@ Minu 서비스(Find, Frame, Build, Keep) 간 공유 패키지 모노레포
 
 | 패키지 | 역할 |
 |--------|------|
-| **@minu/ui** | React UI 컴포넌트 (27개), 훅(10개), 프리미티브(4개) |
-| **@minu/utils** | API 클라이언트, JWT, 검증, 타이밍, ID 생성 유틸리티 |
-| **@minu/types** | User, Project, Proposal, Subscription 타입 |
+| **@idea-on-action/ui** | React UI 컴포넌트 (27개), 훅(10개), 프리미티브(4개) |
+| **@idea-on-action/utils** | API 클라이언트, JWT, 검증, 타이밍, ID 생성 유틸리티 |
+| **@idea-on-action/types** | User, Project, Proposal, Subscription 타입 |
 
 ---
 
@@ -38,9 +38,9 @@ pnpm storybook     # Storybook 실행 (localhost:6006)
 ```
 minu-shared/
 ├── packages/
-│   ├── ui/          # @minu/ui
-│   ├── utils/       # @minu/utils
-│   └── types/       # @minu/types
+│   ├── ui/          # @idea-on-action/ui
+│   ├── utils/       # @idea-on-action/utils
+│   └── types/       # @idea-on-action/types
 ├── spec/            # SDD 명세
 ├── plan/            # SDD 계획
 ├── tasks/           # SDD 작업

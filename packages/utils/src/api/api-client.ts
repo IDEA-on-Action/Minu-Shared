@@ -1,4 +1,4 @@
-import type { User, Subscription, ApiResponse } from '@minu/types';
+import type { User, Subscription, ApiResponse } from '@idea-on-action/types';
 
 export interface ApiClientConfig {
   baseUrl: string;

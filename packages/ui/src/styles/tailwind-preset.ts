@@ -5,13 +5,13 @@
  *
  * @example
  * // tailwind.config.ts
- * import { minuPreset } from '@minu/ui/tailwind';
+ * import { minuPreset } from '@idea-on-action/ui/tailwind';
  *
  * export default {
  *   presets: [minuPreset],
  *   content: [
  *     './src/** /*.{js,ts,jsx,tsx}',
- *     './node_modules/@minu/ui/** /*.{js,ts,jsx,tsx}',
+ *     './node_modules/@idea-on-action/ui/** /*.{js,ts,jsx,tsx}',
  *   ],
  * };
  */
