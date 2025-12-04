@@ -22,7 +22,11 @@
       "Bash(pnpm test:coverage:*)",
       "Bash(pnpm exec vitest:*)",
       "Bash(npx tsc:*)",
-      "Bash(npm view:*)"
+      "Bash(npm view:*)",
+      "Bash(pnpm install:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(GIT_SEQUENCE_EDITOR=\"sed -i ''s/pick \\([a-f0-9]*\\) fixup!/fixup \\1 fixup!/''\" git rebase -i HEAD~3 --autosquash)"
     ],
     "deny": [],
     "ask": []

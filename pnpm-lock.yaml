@@ -129,7 +129,7 @@ importers:
 
   packages/utils:
     dependencies:
-      '@minu/types':
+      '@idea-on-action/types':
         specifier: workspace:*
         version: link:../types
       nanoid:
