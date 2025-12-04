@@ -1,5 +1,5 @@
 {
-  "name": "@minu/utils",
+  "name": "@idea-on-action/utils",
   "version": "1.0.0",
   "description": "Minu 서비스 공용 유틸리티 함수",
   "sideEffects": false,
@@ -23,7 +23,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@minu/types": "workspace:*",
+    "@idea-on-action/types": "workspace:*",
     "nanoid": "^5.1.6"
   },
   "devDependencies": {
@@ -32,7 +32,7 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "public"
   },
   "repository": {
     "type": "git",

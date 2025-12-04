@@ -1,5 +1,5 @@
 {
-  "name": "@minu/ui",
+  "name": "@idea-on-action/ui",
   "version": "1.1.0",
   "description": "Minu 서비스 공용 UI 컴포넌트",
   "sideEffects": [
@@ -44,7 +44,7 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "public"
   },
   "repository": {
     "type": "git",

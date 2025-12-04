@@ -6,9 +6,9 @@ Minu 서비스(Find, Frame, Build, Keep) 공용 패키지 모음
 
 | 패키지 | 설명 | 버전 |
 |--------|------|------|
-| `@minu/ui` | 공용 UI 컴포넌트 | 0.1.0 |
-| `@minu/utils` | 유틸리티 함수 | 0.1.0 |
-| `@minu/types` | TypeScript 타입 정의 | 0.1.0 |
+| `@idea-on-action/ui` | 공용 UI 컴포넌트 | 1.1.0 |
+| `@idea-on-action/utils` | 유틸리티 함수 | 1.0.0 |
+| `@idea-on-action/types` | TypeScript 타입 정의 | 1.0.1 |
 
 ## 🚀 설치 방법
 
@@ -17,7 +17,7 @@ Minu 서비스(Find, Frame, Build, Keep) 공용 패키지 모음
 프로젝트 루트에 `.npmrc` 파일 생성:
 
 ```bash
-@minu:registry=https://npm.pkg.github.com
+@idea-on-action:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
@@ -25,20 +25,20 @@ Minu 서비스(Find, Frame, Build, Keep) 공용 패키지 모음
 
 ```bash
 # 모든 패키지 설치
-pnpm add @minu/ui @minu/utils @minu/types
+pnpm add @idea-on-action/ui @idea-on-action/utils @idea-on-action/types
 
 # 개별 설치
-pnpm add @minu/ui
-pnpm add @minu/utils
-pnpm add @minu/types
+pnpm add @idea-on-action/ui
+pnpm add @idea-on-action/utils
+pnpm add @idea-on-action/types
 ```
 
 ## 📖 사용법
 
-### @minu/ui
+### @idea-on-action/ui
 
 ```tsx
-import { Button, Card, CardHeader, CardTitle, CardContent } from '@minu/ui';
+import { Button, Card, CardHeader, CardTitle, CardContent } from '@idea-on-action/ui';
 
 function MyComponent() {
   return (
@@ -56,10 +56,10 @@ function MyComponent() {
 }
 ```
 
-### @minu/utils
+### @idea-on-action/utils
 
 ```tsx
-import { createApiClient, formatCurrency, parseJWT } from '@minu/utils';
+import { createApiClient, formatCurrency, parseJWT } from '@idea-on-action/utils';
 
 // API 클라이언트
 const api = createApiClient({
@@ -78,10 +78,10 @@ const payload = parseJWT(token);
 console.log(payload?.email);
 ```
 
-### @minu/types
+### @idea-on-action/types
 
 ```tsx
-import type { User, Subscription, JWTPayload, ApiResponse } from '@minu/types';
+import type { User, Subscription, JWTPayload, ApiResponse } from '@idea-on-action/types';
 
 function handleUser(user: User) {
   console.log(user.email);
@@ -122,7 +122,7 @@ cd packages/ui
 pnpm link --global
 
 # minu-find에서
-pnpm link --global @minu/ui
+pnpm link --global @idea-on-action/ui
 ```
 
 ## 📤 배포
@@ -144,21 +144,21 @@ npm version patch  # 0.1.0 → 0.1.1
 ```
 minu-shared/
 ├── packages/
-│   ├── ui/                 # @minu/ui
+│   ├── ui/                 # @idea-on-action/ui
 │   │   ├── src/
 │   │   │   ├── components/
 │   │   │   ├── utils/
 │   │   │   └── index.ts
 │   │   ├── package.json
 │   │   └── tsup.config.ts
-│   ├── utils/              # @minu/utils
+│   ├── utils/              # @idea-on-action/utils
 │   │   ├── src/
 │   │   │   ├── api-client.ts
 │   │   │   ├── jwt.ts
 │   │   │   ├── format.ts
 │   │   │   └── index.ts
 │   │   └── package.json
-│   └── types/              # @minu/types
+│   └── types/              # @idea-on-action/types
 │       ├── src/
 │       │   ├── user.ts
 │       │   ├── api.ts

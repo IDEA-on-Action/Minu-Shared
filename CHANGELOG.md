@@ -11,6 +11,31 @@
 
 ---
 
+## [1.1.1] - 2025-12-05
+
+### Changed
+
+#### 패키지 이름 변경
+- **Breaking Change**: 모든 패키지 스코프를 `@minu`에서 `@idea-on-action`으로 변경
+  - `@minu/types` → `@idea-on-action/types@1.0.1`
+  - `@minu/ui` → `@idea-on-action/ui@1.1.0`
+  - `@minu/utils` → `@idea-on-action/utils@1.0.0`
+- GitHub 조직 이름(`IDEA-on-Action`)과 패키지 스코프 일치
+- `.npmrc` 설정: `@idea-on-action:registry=https://npm.pkg.github.com`
+
+#### GitHub Packages 게시
+- GitHub Packages에 성공적으로 패키지 게시
+- `publishConfig.registry`: `https://npm.pkg.github.com`
+- `publishConfig.access`: `public`
+- GitHub Personal Access Token 기반 인증 설정
+
+#### 문서 업데이트
+- README.md: 패키지 이름 및 설치 가이드 업데이트
+- 모든 예제 코드에서 `@minu` → `@idea-on-action` 변경
+
+---
+
+
 ## [1.1.0] - 2025-11-30
 
 ### Added

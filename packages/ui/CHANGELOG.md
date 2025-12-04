@@ -1,5 +1,11 @@
 # @minu/ui
 
+## 2.0.0
+
+### Major Changes
+
+- Initaial deployment
+
 ## 1.1.0
 
 ### Minor Changes

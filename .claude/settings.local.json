@@ -21,7 +21,8 @@
       "Bash(npx vitest:*)",
       "Bash(pnpm test:coverage:*)",
       "Bash(pnpm exec vitest:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(npm view:*)"
     ],
     "deny": [],
     "ask": []

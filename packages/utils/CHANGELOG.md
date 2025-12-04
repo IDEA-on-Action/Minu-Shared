@@ -1,5 +1,16 @@
 # @minu/utils
 
+## 2.0.0
+
+### Major Changes
+
+- Initaial deployment
+
+### Patch Changes
+
+- Updated dependencies
+  - @minu/types@2.0.0
+
 ## 1.0.0
 
 ### Major Changes
