@@ -1,9 +1,12 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { axe } from 'jest-axe';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { runAxe, resetAxe } from '../test-utils';
 import { DatePicker } from './DatePicker';
 
 describe('DatePicker', () => {
+  afterEach(() => {
+    resetAxe();
+  });
   // ============================================
   // 렌더링 테스트
   // ============================================
@@ -485,8 +488,7 @@ describe('DatePicker', () => {
   describe('axe 접근성 테스트', () => {
     it('접근성 위반이 없어야 한다', async () => {
       const { container } = render(<DatePicker />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
 
     it('캘린더 팝업에 접근성 위반이 없어야 한다', async () => {
@@ -498,8 +500,7 @@ describe('DatePicker', () => {
         expect(screen.getByRole('dialog')).toBeInTheDocument();
       });
 
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
   });
 

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { axe } from 'jest-axe';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { runAxe, resetAxe } from '../test-utils';
 import {
   Card,
   CardHeader,
@@ -11,6 +11,10 @@ import {
 } from './Card';
 
 describe('Card', () => {
+  afterEach(() => {
+    resetAxe();
+  });
+
   it('Card가 렌더링되어야 한다', () => {
     render(<Card data-testid="card">내용</Card>);
     expect(screen.getByTestId('card')).toBeInTheDocument();
@@ -163,7 +167,6 @@ describe('접근성', () => {
         <CardFooter>카드 푸터</CardFooter>
       </Card>
     );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await runAxe(container);
   });
 });

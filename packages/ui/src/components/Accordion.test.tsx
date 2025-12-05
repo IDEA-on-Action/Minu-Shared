@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { axe } from 'jest-axe';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { runAxe, resetAxe } from '../test-utils';
 import {
   Accordion,
   AccordionItem,
@@ -9,6 +9,9 @@ import {
 } from './Accordion';
 
 describe('Accordion', () => {
+  afterEach(() => {
+    resetAxe();
+  });
   describe('기본 렌더링', () => {
     it('Accordion이 렌더링되어야 한다', () => {
       render(
@@ -353,8 +356,7 @@ describe('Accordion', () => {
           </AccordionItem>
         </Accordion>
       );
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
   });
 

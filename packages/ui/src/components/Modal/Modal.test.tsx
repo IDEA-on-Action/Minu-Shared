@@ -1,9 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { axe } from 'jest-axe';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { runAxe, resetAxe } from '../../test-utils';
 import { Modal } from './Modal';
 
 describe('Modal', () => {
+  afterEach(() => {
+    resetAxe();
+  });
   // ============================================
   // 렌더링 테스트
   // ============================================
@@ -219,8 +222,7 @@ describe('Modal', () => {
           </Modal.Content>
         </Modal>
       );
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
   });
 });

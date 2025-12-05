@@ -4,7 +4,7 @@
 >
 > **상세 로드맵**: [plan/roadmap.md](../plan/roadmap.md)
 
-**최종 업데이트**: 2025-11-30
+**최종 업데이트**: 2025-12-05
 
 ---
 
@@ -18,7 +18,8 @@
 | Phase 4 | 7 | 0 | 0 | 7 |
 | Phase 5 | 8 | 0 | 0 | 8 |
 | Phase 6 | 7 | 0 | 0 | 7 |
-| **합계** | **62** | **0** | **0** | **62** |
+| Phase 7 | 0 | 0 | 6 | 6 |
+| **합계** | **62** | **0** | **6** | **68** |
 
 ---
 
@@ -107,6 +108,19 @@
 
 ---
 
+## Phase 7: 실서비스 통합 및 안정화 (v1.3.0) ⏳ 진행 예정
+
+| ID | 작업 | 패키지 | 우선순위 | 상태 |
+|----|------|--------|----------|------|
+| P7-001 | Storybook 스토리 확장 (25개+) | @idea-on-action/ui | P1 | ⏳ |
+| P7-002 | Table 컴포넌트 | @idea-on-action/ui | P2 | ⏳ |
+| P7-003 | Form 컴포넌트 | @idea-on-action/ui | P2 | ⏳ |
+| P7-004 | Command 컴포넌트 | @idea-on-action/ui | P2 | ⏳ |
+| P7-005 | useAsync 훅 | @idea-on-action/ui | P2 | ⏳ |
+| P7-006 | 소비자 서비스 통합 테스트 | all | P1 | ⏳ |
+
+---
+
 ## 기술 부채
 
 | ID | 내용 | 우선순위 | 상태 |
@@ -149,3 +163,4 @@
 | 2025-11-27 | Phase 4: 테스트 커버리지 97.43%, README 3개 완료, vitest 임계값 활성화 |
 | 2025-11-30 | v1.0.0 GA 릴리스 완료, Phase 1~4 모두 100% 완료, P3-007/P3-008/P4-005~007 완료 처리 |
 | 2025-11-30 | Phase 6 완료: Popover, Menu, Accordion, Progress 컴포넌트 + useMediaQuery, useDebounce, useDebouncedCallback 훅 추가 |
+| 2025-12-05 | Phase 7 추가: Storybook 스토리 확장, Table/Form/Command 컴포넌트, useAsync 훅, 통합 테스트 (6개 작업) |

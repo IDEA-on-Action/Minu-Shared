@@ -1,9 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { axe } from 'jest-axe';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { runAxe, resetAxe } from '../test-utils';
 import { Alert } from './Alert';
 
 describe('Alert', () => {
+  afterEach(() => {
+    resetAxe();
+  });
   it('기본 Alert가 렌더링되어야 한다', () => {
     render(<Alert>메시지</Alert>);
     expect(screen.getByRole('alert')).toBeInTheDocument();
@@ -128,8 +131,7 @@ describe('Alert', () => {
   describe('접근성', () => {
     it('접근성 위반이 없어야 한다', async () => {
       const { container } = render(<Alert title="알림">메시지</Alert>);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
   });
 });

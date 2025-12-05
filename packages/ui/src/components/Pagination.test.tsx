@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { axe } from 'jest-axe';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { runAxe, resetAxe } from '../test-utils';
 import { Pagination } from './Pagination';
 
 describe('Pagination', () => {
@@ -310,6 +310,10 @@ describe('Pagination', () => {
   });
 
   describe('접근성', () => {
+    afterEach(() => {
+      resetAxe();
+    });
+
     it('접근성 위반이 없어야 한다', async () => {
       const { container } = render(
         <Pagination
@@ -319,8 +323,7 @@ describe('Pagination', () => {
         />
       );
 
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
 
     it('nav 요소에 aria-label이 있어야 한다', () => {

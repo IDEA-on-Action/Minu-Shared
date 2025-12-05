@@ -7,3 +7,9 @@ export { useId } from './use-id';
 export { useLocalStorage, type UseLocalStorageOptions } from './use-local-storage';
 export { useMediaQuery } from './use-media-query';
 export { useDebounce, useDebouncedCallback } from './use-debounce';
+export {
+  useAsync,
+  type AsyncState,
+  type UseAsyncOptions,
+  type UseAsyncReturn,
+} from './use-async';

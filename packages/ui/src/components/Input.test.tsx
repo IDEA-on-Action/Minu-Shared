@@ -1,9 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { axe } from 'jest-axe';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { runAxe, resetAxe } from '../test-utils';
 import { Input } from './Input';
 
 describe('Input', () => {
+  afterEach(() => {
+    resetAxe();
+  });
   it('기본 input이 렌더링되어야 한다', () => {
     render(<Input placeholder="입력하세요" />);
     expect(screen.getByPlaceholderText('입력하세요')).toBeInTheDocument();
@@ -101,8 +104,7 @@ describe('Input', () => {
           <Input placeholder="이름을 입력하세요" />
         </label>
       );
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
   });
 });

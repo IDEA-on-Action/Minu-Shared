@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { axe } from 'jest-axe';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { runAxe, resetAxe } from '../test-utils';
 import {
   Dropdown,
   DropdownTrigger,
@@ -39,6 +39,10 @@ function BasicDropdown({
 }
 
 describe('Dropdown', () => {
+  afterEach(() => {
+    resetAxe();
+  });
+
   // ============================================
   // 렌더링 테스트
   // ============================================
@@ -414,8 +418,7 @@ describe('Dropdown', () => {
 
       fireEvent.click(screen.getByTestId('trigger'));
 
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
   });
 });

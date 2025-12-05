@@ -15,16 +15,25 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
     include: ['packages/**/*.{test,spec}.{ts,tsx}'],
-    // 메모리 최적화 (OOM 방지)
-    pool: 'forks',
+    // 메모리 최적화 및 순차 실행 (OOM 및 axe 동시 실행 방지)
+    pool: 'threads',
     poolOptions: {
-      forks: {
-        maxForks: 2,
-        minForks: 1,
+      threads: {
+        singleThread: true,
+        isolate: true,
       },
     },
     isolate: true,
     fileParallelism: false,
+    maxConcurrency: 1,
+    maxWorkers: 1,
+    minWorkers: 1,
+    testTimeout: 60000,
+    teardownTimeout: 10000,
+    // 테스트 순차 실행 (axe 동시 실행 방지)
+    sequence: {
+      concurrent: false,
+    },
     deps: {
       optimizer: {
         web: {

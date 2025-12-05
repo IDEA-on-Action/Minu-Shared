@@ -1,6 +1,6 @@
 {
   "name": "@idea-on-action/utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Minu 서비스 공용 유틸리티 함수",
   "sideEffects": false,
   "type": "module",
@@ -23,7 +23,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@idea-on-action/types": "workspace:*",
+    "@idea-on-action/types": "^1.0.1",
     "nanoid": "^5.1.6"
   },
   "devDependencies": {

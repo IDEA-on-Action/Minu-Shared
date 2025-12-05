@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
-import { axe } from 'jest-axe';
+import { describe, it, expect, afterEach } from 'vitest';
+import { runAxe, resetAxe } from '../test-utils';
 import { Progress } from './Progress';
 
 describe('Progress', () => {
@@ -237,22 +237,23 @@ describe('Progress', () => {
   // ============================================
 
   describe('axe 접근성 테스트', () => {
+    afterEach(() => {
+      resetAxe();
+    });
+
     it('접근성 위반이 없어야 한다', async () => {
       const { container } = render(<Progress value={50} aria-label="진행률" />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
 
     it('showLabel이 있을 때 접근성 위반이 없어야 한다', async () => {
       const { container } = render(<Progress value={50} showLabel aria-label="진행률" />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
 
     it('indeterminate 상태에서 접근성 위반이 없어야 한다', async () => {
       const { container } = render(<Progress indeterminate aria-label="로딩 중" />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
   });
 });

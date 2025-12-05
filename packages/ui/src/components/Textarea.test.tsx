@@ -1,9 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { axe } from 'jest-axe';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { runAxe, resetAxe } from '../test-utils';
 import { Textarea } from './Textarea';
 
 describe('Textarea', () => {
+  afterEach(() => {
+    resetAxe();
+  });
   it('기본 textarea가 렌더링되어야 한다', () => {
     render(<Textarea placeholder="입력하세요" />);
     expect(screen.getByPlaceholderText('입력하세요')).toBeInTheDocument();
@@ -171,8 +174,7 @@ describe('Textarea', () => {
           <Textarea placeholder="내용을 입력하세요" />
         </label>
       );
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
 
     it('에러 메시지와 함께 접근성 위반이 없어야 한다', async () => {
@@ -186,8 +188,7 @@ describe('Textarea', () => {
           />
         </label>
       );
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
   });
 });

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
-import { axe } from 'jest-axe';
+import { runAxe, resetAxe } from '../test-utils';
 import { Tooltip } from './Tooltip';
 
 describe('Tooltip', () => {
@@ -11,6 +11,7 @@ describe('Tooltip', () => {
   afterEach(() => {
     vi.runOnlyPendingTimers();
     vi.useRealTimers();
+    resetAxe();
   });
 
   // ============================================
@@ -573,8 +574,7 @@ describe('Tooltip', () => {
           <button>호버하세요</button>
         </Tooltip>
       );
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
 
     it('툴팁이 표시되었을 때 접근성 위반이 없어야 한다', async () => {
@@ -593,8 +593,7 @@ describe('Tooltip', () => {
 
       await waitFor(async () => {
         expect(screen.getByRole('tooltip')).toBeInTheDocument();
-        const results = await axe(container);
-        expect(results).toHaveNoViolations();
+        await runAxe(container);
       });
     });
   });

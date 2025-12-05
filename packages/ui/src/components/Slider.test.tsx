@@ -1,9 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { axe } from 'jest-axe';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { runAxe, resetAxe } from '../test-utils';
 import { Slider } from './Slider';
 
 describe('Slider', () => {
+  afterEach(() => {
+    resetAxe();
+  });
   // ============================================
   // 렌더링 테스트
   // ============================================
@@ -419,14 +422,12 @@ describe('Slider', () => {
   describe('axe 접근성 테스트', () => {
     it('접근성 위반이 없어야 한다', async () => {
       const { container } = render(<Slider value={50} aria-label="볼륨" />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
 
     it('showValue가 있을 때 접근성 위반이 없어야 한다', async () => {
       const { container } = render(<Slider value={50} showValue aria-label="볼륨" />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
   });
 });

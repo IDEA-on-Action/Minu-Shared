@@ -9,16 +9,54 @@
 
 ## [Unreleased]
 
+### Added
+
+#### @idea-on-action/ui
+- **Phase 7 훅**
+  - `useAsync`: 비동기 함수 상태 관리 훅 (loading/error/data, execute/reset, immediate 옵션, race condition 방지)
+
+- **Storybook 스토리 확장 (5개)**
+  - `Switch.stories.tsx`: 스위치 컴포넌트 스토리
+  - `Breadcrumb.stories.tsx`: 브레드크럼 컴포넌트 스토리
+  - `Toast.stories.tsx`: 토스트 컴포넌트 스토리
+  - `Accordion.stories.tsx`: 아코디언 컴포넌트 스토리
+  - `Tabs.stories.tsx`: 탭 컴포넌트 스토리
+
+### Changed
+
+#### 테스트 인프라 개선
+- axe 접근성 테스트 동시 실행 문제 해결
+  - `runAxe` 유틸리티 함수 도입 (큐 기반 순차 실행)
+  - 18개 테스트 파일 runAxe 적용
+- Vitest 설정 최적화
+  - `pool: 'threads'` + `singleThread: true` 설정
+  - `maxConcurrency: 1`, `maxWorkers: 1` 설정
+  - `sequence.concurrent: false` 설정
+
 ---
 
-## [1.1.1] - 2025-12-05
+## [1.2.0] - 2025-12-05
+
+### Added
+
+#### @idea-on-action/ui
+- **Phase 6 컴포넌트 (4개)**
+  - `Popover` 컴포넌트: 팝오버 (Portal, side/align 위치 지정)
+  - `Menu` 컴포넌트: 메뉴 (키보드 네비게이션, 중첩 메뉴 지원)
+  - `Accordion` 컴포넌트: 아코디언 (single/multiple 모드)
+  - `Progress` 컴포넌트: 진행률 표시 (size/color, indeterminate 모드)
+
+- **Phase 6 훅 (3개)**
+  - `useMediaQuery`: SSR 안전한 미디어 쿼리 매칭
+  - `useDebounce`: 값 디바운싱
+  - `useDebouncedCallback`: 콜백 함수 디바운싱
 
 ### Changed
 
 #### 패키지 이름 변경
 - **Breaking Change**: 모든 패키지 스코프를 `@minu`에서 `@idea-on-action`으로 변경
   - `@minu/types` → `@idea-on-action/types@1.0.1`
-  - `@minu/ui` → `@idea-on-action/ui@1.1.0`
+  - `@minu/ui` → `@idea-on-action/ui@1.2.0`
   - `@minu/utils` → `@idea-on-action/utils@1.0.0`
 - GitHub 조직 이름(`IDEA-on-Action`)과 패키지 스코프 일치
 - `.npmrc` 설정: `@idea-on-action:registry=https://npm.pkg.github.com`
@@ -33,8 +71,12 @@
 - README.md: 패키지 이름 및 설치 가이드 업데이트
 - 모든 예제 코드에서 `@minu` → `@idea-on-action` 변경
 
----
+#### 테스트 환경 개선
+- Node.js 힙 메모리 한도 증가: 메인 프로세스 8GB, Worker 프로세스 4GB
+- Vitest fork 프로세스에 `execArgv` 옵션 추가로 Worker OOM 방지
+- 테스트 타임아웃 60초로 증가 (대용량 테스트 안정성 향상)
 
+---
 
 ## [1.1.0] - 2025-11-30
 
@@ -150,7 +192,8 @@
 - **Minor (0.X.0)**: 새로운 기능 추가 (하위 호환)
 - **Patch (0.0.X)**: 버그 수정, 문서 업데이트
 
-[Unreleased]: https://github.com/IDEA-on-Action/minu-shared/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/IDEA-on-Action/minu-shared/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/IDEA-on-Action/minu-shared/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/IDEA-on-Action/minu-shared/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/IDEA-on-Action/minu-shared/compare/v0.1.0...v1.0.0
 [0.1.0]: https://github.com/IDEA-on-Action/minu-shared/releases/tag/v0.1.0

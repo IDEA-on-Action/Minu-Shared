@@ -1,9 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { axe } from 'jest-axe';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { runAxe, resetAxe } from '../test-utils';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs';
 
 describe('Tabs', () => {
+  afterEach(() => {
+    resetAxe();
+  });
   const renderTabs = (props = {}) => {
     return render(
       <Tabs defaultValue="tab1" {...props}>
@@ -165,8 +168,7 @@ describe('Tabs', () => {
           <TabsContent value="tab2">탭 2 내용</TabsContent>
         </Tabs>
       );
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await runAxe(container);
     });
   });
 });
