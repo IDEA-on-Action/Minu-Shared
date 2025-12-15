@@ -12,6 +12,10 @@ export {
   type BatchConfig,
   type BufferConfig,
   type ResolvedEventClientConfig,
+  type AuthMethod,
+  type AuthConfig,
+  type BearerAuthConfig,
+  type HmacAuthConfig,
   resolveConfig,
   DEFAULT_RETRY_CONFIG,
   DEFAULT_BATCH_CONFIG,
@@ -26,3 +30,10 @@ export {
   type HttpError,
   type RetryResult,
 } from './retry';
+
+export {
+  createHmacSignature,
+  createHmacHeaders,
+  type HmacSignature,
+  type HmacHeaders,
+} from './hmac';

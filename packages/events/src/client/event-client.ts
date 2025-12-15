@@ -3,8 +3,9 @@ import type { EventClientConfig, ResolvedEventClientConfig } from './config';
 import { resolveConfig } from './config';
 import { generateEventId } from '../utils/id';
 import { MemoryBuffer } from '../buffer/memory-buffer';
-import { BatchProcessor, type BatchSendResult } from '../batch/batch-processor';
+import { BatchProcessor } from '../batch/batch-processor';
 import { withRetry, isRetryableError } from './retry';
+import { createHmacHeaders } from './hmac';
 import { getUserIdFromToken, getTenantIdFromToken } from '@idea-on-action/utils';
 
 /**
@@ -216,17 +217,18 @@ export class EventClient {
   private async createEvent<T extends string, D extends Record<string, unknown>>(
     payload: EventPayload<T, D>
   ): Promise<BaseEvent<T, D>> {
-    const token = await this.config.getToken();
-
-    // 토큰에서 메타데이터 추출 (토큰이 없거나 파싱 실패 시 null)
+    // Bearer 인증인 경우에만 토큰에서 메타데이터 추출
     let userId: string | undefined;
     let tenantId: string | undefined;
 
-    try {
-      userId = getUserIdFromToken(token) ?? undefined;
-      tenantId = getTenantIdFromToken(token) ?? undefined;
-    } catch {
-      // 토큰 파싱 실패 시 무시
+    if (this.config.auth.method === 'bearer') {
+      try {
+        const token = await this.config.auth.getToken();
+        userId = getUserIdFromToken(token) ?? undefined;
+        tenantId = getTenantIdFromToken(token) ?? undefined;
+      } catch {
+        // 토큰 파싱 실패 시 무시
+      }
     }
 
     // payload의 메타데이터가 토큰에서 추출한 값보다 우선
@@ -253,15 +255,30 @@ export class EventClient {
    * 배치 전송 (내부용)
    */
   private async sendBatch(events: BaseEvent[]): Promise<void> {
-    const token = await this.config.getToken();
+    const body = JSON.stringify({ events });
+
+    // 인증 방식에 따른 헤더 생성
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+
+    if (this.config.auth.method === 'bearer') {
+      const token = await this.config.auth.getToken();
+      headers['Authorization'] = `Bearer ${token}`;
+    } else {
+      // HMAC 인증
+      const hmacHeaders = await createHmacHeaders(
+        this.config.auth.serviceId,
+        this.config.auth.secret,
+        body
+      );
+      Object.assign(headers, hmacHeaders);
+    }
 
     const response = await fetch(this.config.endpoint, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ events }),
+      headers,
+      body,
     });
 
     if (!response.ok) {

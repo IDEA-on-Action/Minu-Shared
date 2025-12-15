@@ -52,15 +52,57 @@ await client.flush();
 await client.shutdown();
 ```
 
+### 인증 방식
+
+#### Bearer 토큰 인증 (기본)
+
+```typescript
+const client = createEventClient({
+  endpoint: 'https://api.ideaonaction.ai/events',
+  service: 'find',
+  environment: 'production',
+  auth: {
+    method: 'bearer',
+    getToken: () => accessToken,
+  },
+});
+```
+
+#### HMAC 인증 (서버리스 환경 권장)
+
+Vercel 등 서버리스 환경에서는 토큰 갱신이 어려우므로 HMAC 인증을 권장합니다.
+
+```typescript
+const client = createEventClient({
+  endpoint: 'https://api.ideaonaction.ai/events',
+  service: 'find',
+  environment: 'production',
+  auth: {
+    method: 'hmac',
+    secret: process.env.IDEAONACTION_HMAC_SECRET!,
+    serviceId: 'minu-find',
+  },
+});
+```
+
+HMAC 인증 시 다음 헤더가 자동으로 추가됩니다:
+- `X-Service-Id`: 서비스 식별자
+- `X-Timestamp`: 요청 시간 (ISO 8601)
+- `X-Nonce`: 요청 고유값 (32자 hex)
+- `X-Signature-256`: HMAC-SHA256 서명 (`sha256=...`)
+
 ### 설정 옵션
 
 ```typescript
 interface EventClientConfig {
   // 필수
   endpoint: string;                              // 이벤트 수신 엔드포인트
-  getToken: () => string | Promise<string>;      // JWT 토큰 제공 함수
   service: ServiceName;                          // 발신 서비스 ('find' | 'frame' | 'build' | 'keep' | 'portal')
   environment: Environment;                      // 환경 ('development' | 'staging' | 'production')
+
+  // 인증 (둘 중 하나 필수)
+  auth?: AuthConfig;                             // Bearer 또는 HMAC 인증 설정
+  getToken?: () => string | Promise<string>;     // (deprecated) Bearer 토큰 제공 함수
 
   // 선택
   schemaVersion?: string;                        // 스키마 버전 (기본: '1.0')
@@ -70,6 +112,21 @@ interface EventClientConfig {
   debug?: boolean;                               // 디버그 모드
   disabled?: boolean;                            // 비활성화 (테스트용)
 }
+
+// Bearer 인증
+interface BearerAuthConfig {
+  method: 'bearer';
+  getToken: () => string | Promise<string>;
+}
+
+// HMAC 인증
+interface HmacAuthConfig {
+  method: 'hmac';
+  secret: string;
+  serviceId: string;
+}
+
+type AuthConfig = BearerAuthConfig | HmacAuthConfig;
 ```
 
 ### 기본 설정값

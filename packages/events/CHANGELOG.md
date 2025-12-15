@@ -1,5 +1,22 @@
 # @idea-on-action/events
 
+## 1.1.0
+
+### Features
+
+- **HMAC 인증 지원**: Vercel 등 서버리스 환경을 위한 HMAC-SHA256 인증 방식 추가
+  - `auth: { method: 'hmac', secret, serviceId }` 설정으로 사용
+  - `X-Service-Id`, `X-Timestamp`, `X-Nonce`, `X-Signature-256` 헤더 자동 생성
+
+- **인증 설정 통합**: `auth` 옵션으로 Bearer/HMAC 인증 방식 선택
+  - Bearer: `auth: { method: 'bearer', getToken }` (기존 방식)
+  - HMAC: `auth: { method: 'hmac', secret, serviceId }` (신규)
+
+### Deprecations
+
+- `getToken` 옵션 deprecated → `auth: { method: 'bearer', getToken }` 권장
+  - 하위 호환성 유지: `getToken`만 제공해도 Bearer 인증으로 동작
+
 ## 1.0.0
 
 ### Features

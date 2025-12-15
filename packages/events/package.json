@@ -1,6 +1,6 @@
 {
   "name": "@idea-on-action/events",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Minu 서비스 → ideaonaction.ai 이벤트 클라이언트",
   "sideEffects": false,
   "type": "module",

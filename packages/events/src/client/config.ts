@@ -1,6 +1,36 @@
 import type { ServiceName, Environment } from '../types/base';
 
 /**
+ * 인증 방식
+ */
+export type AuthMethod = 'bearer' | 'hmac';
+
+/**
+ * Bearer 토큰 인증 설정
+ */
+export interface BearerAuthConfig {
+  method: 'bearer';
+  /** JWT 토큰 또는 토큰 제공 함수 */
+  getToken: () => string | Promise<string>;
+}
+
+/**
+ * HMAC 인증 설정
+ */
+export interface HmacAuthConfig {
+  method: 'hmac';
+  /** HMAC 서명용 시크릿 키 */
+  secret: string;
+  /** 서비스 ID (X-Service-Id 헤더) */
+  serviceId: string;
+}
+
+/**
+ * 인증 설정 (Bearer 또는 HMAC)
+ */
+export type AuthConfig = BearerAuthConfig | HmacAuthConfig;
+
+/**
  * 재시도 설정
  */
 export interface RetryConfig {
@@ -41,14 +71,24 @@ export interface EventClientConfig {
   /** ideaonaction.ai 이벤트 수신 엔드포인트 */
   endpoint: string;
 
-  /** 서비스 JWT 토큰 또는 토큰 제공 함수 */
-  getToken: () => string | Promise<string>;
-
   /** 발신 서비스 식별자 */
   service: ServiceName;
 
   /** 환경 */
   environment: Environment;
+
+  /**
+   * 인증 설정
+   * - Bearer: JWT 토큰 기반 (기본, 서버 환경 권장)
+   * - HMAC: 서명 기반 (Vercel 등 서버리스 환경 권장)
+   */
+  auth?: AuthConfig;
+
+  /**
+   * @deprecated auth 옵션 사용 권장. 하위 호환성을 위해 유지됨.
+   * auth 옵션이 없을 때 Bearer 인증에 사용됩니다.
+   */
+  getToken?: () => string | Promise<string>;
 
   /** 스키마 버전 (기본: '1.0') */
   schemaVersion?: string;
@@ -100,9 +140,9 @@ export const DEFAULT_BUFFER_CONFIG: BufferConfig = {
  */
 export interface ResolvedEventClientConfig {
   endpoint: string;
-  getToken: () => string | Promise<string>;
   service: ServiceName;
   environment: Environment;
+  auth: AuthConfig;
   schemaVersion: string;
   retry: RetryConfig;
   batch: BatchConfig;
@@ -115,11 +155,23 @@ export interface ResolvedEventClientConfig {
  * 설정 병합 유틸리티
  */
 export function resolveConfig(config: EventClientConfig): ResolvedEventClientConfig {
+  // 인증 설정 결정: auth 옵션 우선, 없으면 getToken으로 Bearer 인증
+  let auth: AuthConfig;
+
+  if (config.auth) {
+    auth = config.auth;
+  } else if (config.getToken) {
+    // 하위 호환성: getToken이 있으면 Bearer 인증으로 변환
+    auth = { method: 'bearer', getToken: config.getToken };
+  } else {
+    throw new Error('EventClientConfig: auth 또는 getToken 중 하나는 필수입니다.');
+  }
+
   return {
     endpoint: config.endpoint,
-    getToken: config.getToken,
     service: config.service,
     environment: config.environment,
+    auth,
     schemaVersion: config.schemaVersion ?? '1.0',
     retry: { ...DEFAULT_RETRY_CONFIG, ...config.retry },
     batch: { ...DEFAULT_BATCH_CONFIG, ...config.batch },
