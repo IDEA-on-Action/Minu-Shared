@@ -1,0 +1,43 @@
+{
+  "name": "@idea-on-action/events",
+  "version": "1.0.0",
+  "description": "Minu 서비스 → ideaonaction.ai 이벤트 클라이언트",
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src/",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@idea-on-action/utils": "^1.0.2"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IDEA-on-Action/minu-shared.git",
+    "directory": "packages/events"
+  },
+  "keywords": ["minu", "events", "ideaonaction", "analytics"],
+  "license": "MIT"
+}

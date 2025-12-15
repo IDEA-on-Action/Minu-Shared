@@ -87,6 +87,19 @@ importers:
         specifier: ^1.6.1
         version: 1.6.1(jsdom@24.1.3)
 
+  packages/events:
+    dependencies:
+      '@idea-on-action/utils':
+        specifier: ^1.0.2
+        version: link:../utils
+    devDependencies:
+      tsup:
+        specifier: ^8.0.1
+        version: 8.5.1(typescript@5.9.3)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+
   packages/types:
     devDependencies:
       tsup:
@@ -130,7 +143,7 @@ importers:
   packages/utils:
     dependencies:
       '@idea-on-action/types':
-        specifier: workspace:*
+        specifier: ^1.0.1
         version: link:../types
       nanoid:
         specifier: ^5.1.6
