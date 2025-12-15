@@ -1,6 +1,6 @@
 {
   "name": "@idea-on-action/utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Minu 서비스 공용 유틸리티 함수",
   "sideEffects": false,
   "type": "module",
