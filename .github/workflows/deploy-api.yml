@@ -83,12 +83,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: apps/api
           command: deploy --env staging
-          secrets: |
-            JWT_PUBLIC_KEY
-            EVENTS_SECRET
-        env:
-          JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY }}
-          EVENTS_SECRET: ${{ secrets.EVENTS_SECRET }}
 
       - name: Health Check
         run: |
@@ -132,12 +126,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: apps/api
           command: deploy --env production
-          secrets: |
-            JWT_PUBLIC_KEY
-            EVENTS_SECRET
-        env:
-          JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY }}
-          EVENTS_SECRET: ${{ secrets.EVENTS_SECRET }}
 
       - name: Health Check
         run: |
@@ -181,12 +169,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: apps/api
           command: deploy --env production
-          secrets: |
-            JWT_PUBLIC_KEY
-            EVENTS_SECRET
-        env:
-          JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY }}
-          EVENTS_SECRET: ${{ secrets.EVENTS_SECRET }}
 
       - name: Health Check
         run: |
