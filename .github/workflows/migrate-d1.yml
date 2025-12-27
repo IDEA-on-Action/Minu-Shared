@@ -1,0 +1,107 @@
+name: D1 Migrations
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run migrations'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      database:
+        description: 'Database to migrate'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - shared
+          - find
+          - frame
+          - build
+          - keep
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+jobs:
+  migrate:
+    name: Run D1 Migrations
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Migrate Shared DB
+        if: github.event.inputs.database == 'all' || github.event.inputs.database == 'shared'
+        working-directory: apps/api
+        run: |
+          if [ "${{ github.event.inputs.environment }}" == "staging" ]; then
+            npx wrangler d1 migrations apply minu-shared-db-staging --remote --env staging
+          else
+            npx wrangler d1 migrations apply minu-shared-db --remote --env production
+          fi
+
+      - name: Migrate Find DB
+        if: github.event.inputs.database == 'all' || github.event.inputs.database == 'find'
+        working-directory: apps/api
+        run: |
+          if [ "${{ github.event.inputs.environment }}" == "staging" ]; then
+            npx wrangler d1 migrations apply minu-find-db-staging --remote --env staging
+          else
+            npx wrangler d1 migrations apply minu-find-db --remote --env production
+          fi
+
+      - name: Migrate Frame DB
+        if: github.event.inputs.database == 'all' || github.event.inputs.database == 'frame'
+        working-directory: apps/api
+        run: |
+          if [ "${{ github.event.inputs.environment }}" == "staging" ]; then
+            npx wrangler d1 migrations apply minu-frame-db-staging --remote --env staging
+          else
+            npx wrangler d1 migrations apply minu-frame-db --remote --env production
+          fi
+
+      - name: Migrate Build DB
+        if: github.event.inputs.database == 'all' || github.event.inputs.database == 'build'
+        working-directory: apps/api
+        run: |
+          if [ "${{ github.event.inputs.environment }}" == "staging" ]; then
+            npx wrangler d1 migrations apply minu-build-db-staging --remote --env staging
+          else
+            npx wrangler d1 migrations apply minu-build-db --remote --env production
+          fi
+
+      - name: Migrate Keep DB
+        if: github.event.inputs.database == 'all' || github.event.inputs.database == 'keep'
+        working-directory: apps/api
+        run: |
+          if [ "${{ github.event.inputs.environment }}" == "staging" ]; then
+            npx wrangler d1 migrations apply minu-keep-db-staging --remote --env staging
+          else
+            npx wrangler d1 migrations apply minu-keep-db --remote --env production
+          fi
+
+      - name: Summary
+        run: |
+          echo "## Migration Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment:** ${{ github.event.inputs.environment }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Database:** ${{ github.event.inputs.database }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** Completed" >> $GITHUB_STEP_SUMMARY

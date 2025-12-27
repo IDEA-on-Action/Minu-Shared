@@ -23,7 +23,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@idea-on-action/utils": "^1.0.3"
+    "@idea-on-action/utils": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.1",

@@ -1,0 +1,180 @@
+# ============================================
+# Minu API - Cloudflare Workers Configuration
+# ============================================
+
+name = "minu-api"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# 기본 설정 (development)
+[vars]
+ENVIRONMENT = "development"
+
+# ============================================
+# Durable Objects
+# ============================================
+[durable_objects]
+bindings = [
+  { name = "RATE_LIMITER", class_name = "RateLimiter" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["RateLimiter"]
+
+# ============================================
+# Staging 환경
+# ============================================
+[env.staging]
+name = "minu-api-staging"
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+
+# D1 Databases
+[[env.staging.d1_databases]]
+binding = "DB_SHARED"
+database_name = "minu-shared-db-staging"
+database_id = "a527c6c5-23e3-4a15-837b-f1bed457e487"
+
+[[env.staging.d1_databases]]
+binding = "DB_FIND"
+database_name = "minu-find-db-staging"
+database_id = "0557d720-83ba-4a64-a29a-23c3f9506305"
+
+[[env.staging.d1_databases]]
+binding = "DB_FRAME"
+database_name = "minu-frame-db-staging"
+database_id = "6fb79197-097a-40b6-b6f0-70c7735728ee"
+
+[[env.staging.d1_databases]]
+binding = "DB_BUILD"
+database_name = "minu-build-db-staging"
+database_id = "85668006-bd25-4354-a587-74aded1a6b2e"
+
+[[env.staging.d1_databases]]
+binding = "DB_KEEP"
+database_name = "minu-keep-db-staging"
+database_id = "7d526001-e31f-4bcc-bf04-00729504f013"
+
+# KV Namespaces
+[[env.staging.kv_namespaces]]
+binding = "SESSION_KV"
+id = "fafaf61508a745bdab1df127a45000cb"
+
+[[env.staging.kv_namespaces]]
+binding = "CACHE_KV"
+id = "f17a5c5b5d394ec795595c7d6f9d4c27"
+
+[[env.staging.kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "cde5764578d0443b81b718e5f741da4e"
+
+# R2 Buckets
+[[env.staging.r2_buckets]]
+binding = "PUBLIC_ASSETS"
+bucket_name = "minu-public-assets-staging"
+
+[[env.staging.r2_buckets]]
+binding = "FILES"
+bucket_name = "minu-files-staging"
+
+# Queues (Producer)
+[[env.staging.queues.producers]]
+queue = "minu-notification-queue-staging"
+binding = "NOTIFICATION_QUEUE"
+
+[[env.staging.queues.producers]]
+queue = "minu-event-queue-staging"
+binding = "EVENT_QUEUE"
+
+[[env.staging.queues.producers]]
+queue = "minu-email-queue-staging"
+binding = "EMAIL_QUEUE"
+
+# Durable Objects
+[env.staging.durable_objects]
+bindings = [
+  { name = "RATE_LIMITER", class_name = "RateLimiter" }
+]
+
+# ============================================
+# Production 환경
+# ============================================
+[env.production]
+name = "minu-api"
+workers_dev = true  # workers.dev URL 활성화 (DNS 설정 전 테스트용)
+routes = [
+  { pattern = "api.minu.best/*", zone_name = "minu.best" }
+]
+
+[env.production.vars]
+ENVIRONMENT = "production"
+
+# D1 Databases
+[[env.production.d1_databases]]
+binding = "DB_SHARED"
+database_name = "minu-shared-db"
+database_id = "f2b900d2-aa15-48f4-8dd0-6d44434cad56"
+
+[[env.production.d1_databases]]
+binding = "DB_FIND"
+database_name = "minu-find-db"
+database_id = "9eef5281-39a3-486c-b774-34b35a57b38c"
+
+[[env.production.d1_databases]]
+binding = "DB_FRAME"
+database_name = "minu-frame-db"
+database_id = "111467fc-3b05-4194-a0d6-c635adaec49c"
+
+[[env.production.d1_databases]]
+binding = "DB_BUILD"
+database_name = "minu-build-db"
+database_id = "ec6a70f5-9d85-4380-b74c-70238c7afbfa"
+
+[[env.production.d1_databases]]
+binding = "DB_KEEP"
+database_name = "minu-keep-db"
+database_id = "c3940953-856c-4886-847e-de5222a160bb"
+
+# KV Namespaces
+[[env.production.kv_namespaces]]
+binding = "SESSION_KV"
+id = "5df185da99044525a25d0dec72e4e40f"
+
+[[env.production.kv_namespaces]]
+binding = "CACHE_KV"
+id = "851ff4e9a0604cc9ad4da1e3da1d13e4"
+
+[[env.production.kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "651ed609a3ce47f893d2869452e4eb6c"
+
+# R2 Buckets
+[[env.production.r2_buckets]]
+binding = "PUBLIC_ASSETS"
+bucket_name = "minu-public-assets"
+
+[[env.production.r2_buckets]]
+binding = "FILES"
+bucket_name = "minu-files"
+
+# Queues (Producer)
+[[env.production.queues.producers]]
+queue = "minu-notification-queue"
+binding = "NOTIFICATION_QUEUE"
+
+[[env.production.queues.producers]]
+queue = "minu-event-queue"
+binding = "EVENT_QUEUE"
+
+[[env.production.queues.producers]]
+queue = "minu-email-queue"
+binding = "EMAIL_QUEUE"
+
+# Durable Objects
+[env.production.durable_objects]
+bindings = [
+  { name = "RATE_LIMITER", class_name = "RateLimiter" }
+]

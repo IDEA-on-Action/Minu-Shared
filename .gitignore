@@ -4,7 +4,7 @@ node_modules/
 
 # Build outputs
 dist/
-build/
+/build/
 *.tsbuildinfo
 
 # IDE
@@ -56,3 +56,12 @@ storybook-static/
 
 # Generated files
 *.generated.*
+
+# Secrets & Keys
+keys/
+*.pem
+*.key
+
+# Cloudflare
+.wrangler/
+.dev.vars

@@ -1,0 +1,258 @@
+# Cloudflare D1 데이터베이스 마이그레이션 워크플로우
+# 사용법: 각 서비스 레포의 .github/workflows/에 복사하여 사용
+
+name: D1 Migrations
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'migrations/**'
+      - '.github/workflows/d1-migrations.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'migrations/**'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: '대상 환경'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      action:
+        description: '실행할 액션'
+        required: true
+        default: 'apply'
+        type: choice
+        options:
+          - apply
+          - status
+          - dry-run
+
+concurrency:
+  group: d1-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false  # 마이그레이션은 취소하지 않음
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+
+jobs:
+  # ============================================
+  # 1. 마이그레이션 파일 검증
+  # ============================================
+  validate:
+    name: Validate Migrations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate SQL syntax
+        run: |
+          echo "🔍 마이그레이션 파일 검증 중..."
+
+          for file in migrations/*.sql; do
+            if [ -f "$file" ]; then
+              echo "검증: $file"
+              # 기본 SQL 문법 검증 (sqlite3 사용)
+              sqlite3 :memory: < "$file" 2>&1 || {
+                echo "❌ SQL 오류 발견: $file"
+                exit 1
+              }
+              echo "✅ $file - 유효함"
+            fi
+          done
+
+          echo "✅ 모든 마이그레이션 파일 검증 완료"
+
+      - name: Check migration naming
+        run: |
+          echo "🔍 마이그레이션 파일명 규칙 검증..."
+
+          PATTERN="^[0-9]{4}_[a-z_]+\.sql$"
+
+          for file in migrations/*.sql; do
+            if [ -f "$file" ]; then
+              filename=$(basename "$file")
+              if [[ ! $filename =~ $PATTERN ]]; then
+                echo "❌ 잘못된 파일명: $filename"
+                echo "   예상 형식: 0001_create_users.sql"
+                exit 1
+              fi
+            fi
+          done
+
+          echo "✅ 파일명 규칙 검증 완료"
+
+  # ============================================
+  # 2. Staging 마이그레이션 (자동)
+  # ============================================
+  migrate-staging:
+    name: Migrate Staging
+    runs-on: ubuntu-latest
+    needs: validate
+    if: |
+      (github.ref == 'refs/heads/main' && github.event_name == 'push') ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check migration status
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 migrations list ${{ vars.D1_DATABASE_NAME }} --env staging
+
+      - name: Apply migrations (Dry Run)
+        if: github.event_name == 'pull_request' || github.event.inputs.action == 'dry-run'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 migrations apply ${{ vars.D1_DATABASE_NAME }} --env staging --dry-run
+
+      - name: Apply migrations
+        if: github.event_name != 'pull_request' && github.event.inputs.action != 'dry-run'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 migrations apply ${{ vars.D1_DATABASE_NAME }} --env staging
+
+      - name: Verify migration
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 execute ${{ vars.D1_DATABASE_NAME }} --env staging --command "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
+
+      - name: Output summary
+        run: |
+          echo "## 📦 Staging D1 마이그레이션 완료" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**데이터베이스**: ${{ vars.D1_DATABASE_NAME }}" >> $GITHUB_STEP_SUMMARY
+          echo "**환경**: staging" >> $GITHUB_STEP_SUMMARY
+          echo "**커밋**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+
+  # ============================================
+  # 3. Production 마이그레이션 (수동)
+  # ============================================
+  migrate-production:
+    name: Migrate Production
+    runs-on: ubuntu-latest
+    needs: validate
+    if: |
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.environment == 'production'
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Create backup
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 export ${{ vars.D1_DATABASE_NAME }} --env production --output backup-${{ github.sha }}.sql
+
+      - name: Upload backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: d1-backup-${{ github.sha }}
+          path: backup-${{ github.sha }}.sql
+          retention-days: 30
+
+      - name: Check migration status
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 migrations list ${{ vars.D1_DATABASE_NAME }} --env production
+
+      - name: Apply migrations (Dry Run first)
+        if: github.event.inputs.action != 'status'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 migrations apply ${{ vars.D1_DATABASE_NAME }} --env production --dry-run
+
+      - name: Apply migrations
+        if: github.event.inputs.action == 'apply'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 migrations apply ${{ vars.D1_DATABASE_NAME }} --env production
+
+      - name: Verify migration
+        if: github.event.inputs.action == 'apply'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 execute ${{ vars.D1_DATABASE_NAME }} --env production --command "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
+
+      - name: Output summary
+        run: |
+          echo "## 🎉 Production D1 마이그레이션 완료" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**데이터베이스**: ${{ vars.D1_DATABASE_NAME }}" >> $GITHUB_STEP_SUMMARY
+          echo "**환경**: production" >> $GITHUB_STEP_SUMMARY
+          echo "**백업**: d1-backup-${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**커밋**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Production D1 마이그레이션 실패 - ${context.sha.substring(0, 7)}`,
+              body: `## 마이그레이션 실패\n\n**커밋**: ${context.sha}\n**워크플로우**: ${context.runId}\n\n백업 파일이 아티팩트로 저장되어 있습니다. 롤백이 필요할 수 있습니다.`,
+              labels: ['bug', 'urgent', 'database']
+            });
